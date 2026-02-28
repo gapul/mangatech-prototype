@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KOMA LINK Slides</title>
+  <style>
+    :root {
+      --brand-red: #F20505;
+      --dark-red: #D93232;
+      --impact-yellow: #F2CB05;
+      --deep-black: #0D0D0D;
+      --clean-white: #FFFEFE;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+      background: #070707;
+      color: var(--clean-white);
+    }
+    .deck {
+      display: grid;
+      gap: 40px;
+      padding: 40px;
+      justify-items: center;
+    }
+    .slide {
+      width: min(1280px, 96vw);
+      aspect-ratio: 16 / 9;
+      border-radius: 24px;
+      padding: 56px 64px;
+      position: relative;
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+      display: grid;
+      gap: 24px;
+    }
+    .slide.light {
+      background: var(--clean-white);
+      color: var(--deep-black);
+    }
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 8px 8px;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .slide.light::before {
+      background-image: radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1px);
+      opacity: 0.25;
+    }
+    .kicker {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      font-weight: 700;
+      color: var(--impact-yellow);
+      z-index: 1;
+    }
+    .title {
+      font-size: 54px;
+      font-weight: 800;
+      margin: 0;
+      z-index: 1;
+    }
+    .subtitle {
+      font-size: 20px;
+      color: #cfcfcf;
+      z-index: 1;
+    }
+    .slide.light .subtitle {
+      color: #555;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 32px;
+      z-index: 1;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      z-index: 1;
+    }
+    .card {
+      background: rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .slide.light .card {
+      background: #f8f8f8;
+      border: 1px solid #eee;
+    }
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+      font-size: 18px;
+    }
+    .highlight {
+      color: var(--impact-yellow);
+      font-weight: 700;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--brand-red);
+      color: var(--clean-white);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+    .mock {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid #222;
+    }
+    .mock img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: center;
+    }
+    .flow .step {
+      background: rgba(255,255,255,0.06);
+      padding: 16px;
+      border-radius: 14px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .slide.light .flow .step {
+      background: #f3f3f3;
+      border-color: #e5e5e5;
+    }
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      font-size: 14px;
+    }
+    .timeline div {
+      background: rgba(255,255,255,0.08);
+      padding: 14px;
+      border-radius: 12px;
+    }
+    .slide.light .timeline div {
+      background: #f5f5f5;
+    }
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      right: 28px;
+      font-size: 12px;
+      color: #777;
+    }
+    .hero-image {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+      width: 360px;
+      transform: rotate(-2deg);
+      border-radius: 18px;
+      border: 3px solid var(--impact-yellow);
+      box-shadow: 0 24px 50px rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+    .pill-list {
+      display: grid;
+      gap: 10px;
+      font-size: 18px;
+    }
+    .pill {
+      background: rgba(242,5,5,0.15);
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(242,5,5,0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+    .slide.light .pill {
+      background: rgba(242,5,5,0.08);
+      border-color: rgba(242,5,5,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <section class="slide">
+      <div class="kicker">MANGA TECH 2026</div>
+      <h1 class="title">KOMA LINK</h1>
+      <div class="subtitle">コマ単位で「感情・考察・二次創作」をつなぐJump+公式SNS</div>
+      <div class="badge">Prototype + Slide</div>
+      <img class="hero-image" src="assets/panels/panel-shock.png" alt="hero" />
+      <div class="footer">1 / 20</div>
+    </section>
+
+    <section class="slide light">
+      <div class="kicker">PROBLEM</div>
+      <h2 class="title">今のSNSでは共有が難しい</h2>
+      <div class="grid-2">
+        <ul>
+          <li>ネタバレが怖くて、感想を投稿しづらい</li>
+          <li>周囲にマンガ好きがいない</li>
+          <li>二次創作の権利が不安で投稿できない</li>
+        </ul>
+        <div class="card">
+          <div class="badge">痛み</div>
+          <p>コマ単位の感情や考察が埋もれ、ジャンプ＋の「読書体験」がSNSで分断される。</p>
+        </div>
+      </div>
+      <div class="footer">2 / 20</div>
+    </section>
+
+    <section class="slide">
+      <div class="kicker">PERSONA 1</div>
+      <h2 class="title">10代男子 / 学生</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li>感想をすぐ共有したい</li>
+            <li>リアルに語れる相手がいない</li>
+            <li>ネタバレ投稿の罪悪感</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill-list">
+            <div class="pill">コマ単位で安全に語れる</div>
+            <div class="pill">読了範囲だけ表示</div>
+            <div class="pill">話題の考察が届く</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">3 / 20</div>
+    </section>
+
+    <section class="slide light">
+      <div class="kicker">PERSONA 2</div>
+      <h2 class="title">20代女性 / 二次創作ユーザー</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li>公式が許諾する場で投稿したい</li>
+            <li>二次創作の反応が欲しい</li>
+            <li>作品世界の深掘りをしたい</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill-list">
+            <div class="pill">公式の権利安心空間</div>
+            <div class="pill">コマと紐付けて作品貢献</div>
+            <div class="pill">同好のファンと交流</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">4 / 20</div>
+    </section>
+
+    <section class="slide">
+      <div class="kicker">VALUE</div>
+      <h2 class="title">ジャンプ＋が「読書の場」から「交流の場」に</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>読書体験の延長</h3>
+          <p>コマ単位の感情が残ることで、作品理解と熱量が増幅。</p>
+        </div>
+        <div class="card">
+          <h3>UGCの蓄積</h3>
+          <p>考察・二次創作がJump+内で資産化。</p>
+        </div>
+        <div class="card">
+          <h3>新規作品の発見</h3>
+          <p>話題コメントから作品導線が生まれる。</p>
+        </div>
+      </div>
+      <div class="footer">5 / 20</div>
+    </section>
+
+    <section class="slide light">
+      <div class="kicker">SOLUTION</div>
+      <h2 class="title">コマに紐づくSNS</h2>
+      <div class="grid-2">
+        <div>
+          <ul>
+            <li>コマ長押しでコメント一覧</li>
+            <li>コマとコメントの相互リンク</li>
+            <li>テキスト / 画像 / 動画投稿</li>
+            <li>いいジャン・返信・リスト</li>
+          </ul>
+        </div>
+        <div class="mock">
+          <img src="assets/panels/panel-noodles.png" alt="panel" />
+        </div>
+      </div>
+      <div class="footer">6 / 20</div>
+    </section>
+
+    <section class="slide">
+      <div class="kicker">CORE FLOW</div>
+      <h2 class="title">長押し → コメント閲覧 → 投稿</h2>
+      <div class="flow">
+        <div class="step">コマ長押し</div>
+        <div class="step">コメント一覧</div>
+        <div class="step">画像付き投稿</div>
+      </div>
+      <div class="footer">7 / 20</div>
+    </section>
+
+    <section class="slide light">
+      <div class="kicker">LINK</div>
+      <h2 class="title">コメント ↔ コマ 相互リンク</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li>コメントからコマへワンタップ</li>
+            <li>コマ上で関連コメントを一覧</li>
+            <li>読書の邪魔にならないシートUI</li>
+          </ul>
+        </div>
+        <div class="mock">
+          <img src="assets/panels/panel-food.png" alt="panel" />
+        </div>
+      </div>
+      <div class="footer">8 / 20</div>
+    </section>
+
+    <section class="slide">
+      <div class="kicker">MULTI PANEL</div>
+      <h2 class="title">複数コマを選んで考察</h2>
+      <div class="grid-2">
+        <div>
+          <ul>
+            <li>近くのコマ / 別巻も選択可能</li>
+            <li>伏線・対比の語りがしやすい</li>
+            <li>選択コマ一覧をカード化</li>
+          </ul>
+        </div>
+        <div class="mock">
+          <img src="assets/panels/panel-city.png" alt="panel" />
+        </div>
+      </div>
+      <div class="footer">9 / 20</div>
+    </section>
+
+    <section class="slide light">
+      <div class="kicker">SPOILER CONTROL</div>
+      <h2 class="title">ネタバレの可視制御</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li>投稿時にネタバレタグを必須確認</li>
+            <li>未読コマのコメントは非表示</li>
+            <li>設定で見える範囲を調整</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="badge">安心感</div>
+          <p>読書体験を損なわずにコミュニティを広げる。</p>
+        </div>
+      </div>
+      <div class="footer">10 / 20</div>
+    </section>
+
+    <section class="slide">
+      <div class="kicker">UGC</div>
+      <h2 class="title">公式の二次創作エリア</h2>
+      <div class="grid-2">
+        <div>
+          <ul>
+            <li>Jump+公式として権利を安心化</li>
+            <li>二次創作投稿をコマに紐づけ</li>
+            <li>投稿ガイドラインと審査ライン</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="badge">公式枠</div>
+          <p>ファンの熱量を健全に育て、作品価値を高める。</p>
+        </div>
+      </div>
+      <div class="footer">11 / 20</div>
+    </section>
+
+    <section class="slide light">
+      <div class="kicker">DISCOVERY</div>
+      <h2 class="title">話題コメントから作品へ</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>ホットコメント</h3>
+          <p>いいジャン / 返信数で自動ピックアップ。</p>
+        </div>
+        <div class="card">
+          <h3>有益考察リスト</h3>
+          <p>ファンが編集する「読むべきコマ集」。</p>
+        </div>
+        <div class="card">
+          <h3>新作発見</h3>
+          <p>人気コマを起点に作品へ誘導。</p>
+        </div>
+      </div>
+      <div class="footer">12 / 20</div>
+    </section>
+
+    <section class="slide">
+      <div class="kicker">COMMUNITY</div>
+      <h2 class="title">いいジャン / 返信 / プロフィール</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li>いいジャンで応援</li>
+            <li>返信で議論が育つ</li>
+            <li>コメント履歴で自己表現</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="badge">ライト交流</div>
+          <p>読書の邪魔をしないUIでSNS疲れを減らす。</p>
+        </div>
+      </div>
+      <div class="footer">13 / 20</div>
+    </section>
+
+    <section class="slide light">
+      <div class="kicker">TECH</div>
+      <h2 class="title">コマ検出 + 手動補正</h2>
+      <div class="grid-2">
+        <div>
+          <ul>
+            <li>AI画像認識 + エッジ検出のハイブリッド</li>
+            <li>編集者/作者が手軽に調整できるUI</li>
+            <li>コマIDを永続化してコメントと紐づけ</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="badge">精度担保</div>
+          <p>コマのズレがSNS体験を壊さないように管理。</p>
+        </div>
+      </div>
+      <div class="footer">14 / 20</div>
+    </section>
+
+    <section class="slide">
+      <div class="kicker">BACKEND</div>
+      <h2 class="title">データ構造（MVP）</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li>Users / Profiles</li>
+            <li>Works / Episodes / Panels</li>
+            <li>Comments / Attachments</li>
+            <li>PanelLinks / Tags / SpoilerFlags</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="badge">API</div>
+          <p>コマID単位でコメントを高速取得し、読書体験を止めない。</p>
+        </div>
+      </div>
+      <div class="footer">15 / 20</div>
+    </section>
+
+    <section class="slide light">
+      <div class="kicker">MODERATION</div>
+      <h2 class="title">権利・安全運用</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li>二次創作の投稿ガイドライン</li>
+            <li>自動フィルタ + 編集者レビュー</li>
+            <li>違反時の削除 / ミュート</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="badge">安心</div>
+          <p>権利侵害リスクを最小化し、公式だからこそ安心できる環境を作る。</p>
+        </div>
+      </div>
+      <div class="footer">16 / 20</div>
+    </section>
+
+    <section class="slide">
+      <div class="kicker">BUSINESS</div>
+      <h2 class="title">Jump+の成長エンジン</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>滞在時間</h3>
+          <p>コメント閲覧が読書後のリテンションになる。</p>
+        </div>
+        <div class="card">
+          <h3>回遊</h3>
+          <p>話題コマから他作品への導線。</p>
+        </div>
+        <div class="card">
+          <h3>海外</h3>
+          <p>翻訳コメント機能で国際コミュニティへ拡張。</p>
+        </div>
+      </div>
+      <div class="footer">17 / 20</div>
+    </section>
+
+    <section class="slide light">
+      <div class="kicker">COMPETITION</div>
+      <h2 class="title">競合との差別化</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>アル</h3>
+          <p>コマ投稿主体。SNS外シェアが中心。</p>
+        </div>
+        <div class="card">
+          <h3>コミチ</h3>
+          <p>付箋コメントは単話内に閉じる。</p>
+        </div>
+        <div class="card">
+          <h3>KOMA LINK</h3>
+          <p>公式SNSとしてUGCと二次創作が循環。</p>
+        </div>
+      </div>
+      <div class="footer">18 / 20</div>
+    </section>
+
+    <section class="slide">
+      <div class="kicker">ROADMAP</div>
+      <h2 class="title">MVP → 本格展開</h2>
+      <div class="timeline">
+        <div>0-2ヶ月
+          <br>コマ検出 / コメント基盤</div>
+        <div>3-4ヶ月
+          <br>いいジャン / 返信 / ネタバレ制御</div>
+        <div>5-6ヶ月
+          <br>二次創作投稿 / ガイドライン</div>
+        <div>7-12ヶ月
+          <br>海外展開 / 翻訳コメント</div>
+      </div>
+      <div class="footer">19 / 20</div>
+    </section>
+
+    <section class="slide light">
+      <div class="kicker">TEAM</div>
+      <h2 class="title">開発体制</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li>プロダクトオーナー（企画・編集）</li>
+            <li>フロントエンド（UI / Prototype）</li>
+            <li>バックエンド（API / 検出基盤）</li>
+            <li>外部連携：画像認識モデル協力</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="badge">Ready</div>
+          <p>ジャンプ＋の読者体験を最大化する実現可能な体制。</p>
+        </div>
+      </div>
+      <div class="footer">20 / 20</div>
+    </section>
+  </div>
+</body>
+</html>
