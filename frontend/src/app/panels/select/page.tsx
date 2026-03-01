@@ -5,21 +5,37 @@ import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import { Check } from "lucide-react";
 
-const ALL_PANELS = [
-    { id: "p1", src: "/assets/panels/panel-city.png" },
-    { id: "p2", src: "/assets/panels/panel-noodles.png" },
-    { id: "p3", src: "/assets/panels/panel-food.png" },
-    { id: "p4", src: "/assets/panels/panel-shock.png" },
-];
-
-const ANOTHER_VOLUME_PANELS = [
-    { id: "a1", src: "/assets/panels/panel-shock.png" },
-    { id: "a2", src: "/assets/panels/panel-noodles.png" },
-    { id: "a3", src: "/assets/panels/panel-city.png" },
-    { id: "a4", src: "/assets/panels/panel-food.png" },
-    { id: "a5", src: "/assets/panels/panel-shock.png" },
-    { id: "a6", src: "/assets/panels/panel-city.png" },
-];
+// Helper component to render a selectable grid panel
+function SelectablePanel({ id, src, className, selected, toggleSelect }: { id: string, src: string, className: string, selected: string[], toggleSelect: (id: string) => void }) {
+    const isSelected = selected.includes(id);
+    return (
+        <div
+            onClick={() => toggleSelect(id)}
+            className={`relative cursor-pointer border-4 transition-all overflow-hidden ${isSelected
+                ? "border-[var(--color-impact-yellow)] shadow-[0_0_0_4px_var(--color-brand-red)] z-10"
+                : "border-black"
+                } ${className}`}
+        >
+            <img
+                src={src}
+                className={`absolute inset-0 w-full h-full object-cover transition-all ${!isSelected ? "grayscale contrast-125 opacity-90" : "scale-105"}`}
+                alt="Panel Option"
+            />
+            {isSelected && (
+                <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center pointer-events-none">
+                    <div className="w-12 h-12 border-4 border-black bg-[var(--color-impact-yellow)] text-black flex items-center justify-center rounded-full mb-2">
+                        <Check strokeWidth={4} />
+                    </div>
+                </div>
+            )}
+            {!isSelected && (
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/80 text-[var(--color-impact-yellow)] px-3 py-1 text-sm font-black rounded-full border-2 border-[var(--color-impact-yellow)] opacity-0 hover:opacity-100 transition-opacity">
+                    タップで選択
+                </div>
+            )}
+        </div>
+    );
+}
 
 export default function SelectPanelPage() {
     const router = useRouter();
@@ -46,8 +62,8 @@ export default function SelectPanelPage() {
                 <button
                     onClick={() => setActiveTab("nearby")}
                     className={`flex-1 py-3 font-bold text-center border-b-4 transition-all ${activeTab === "nearby"
-                            ? "border-[var(--color-brand-red)] bg-black text-[var(--color-impact-yellow)]"
-                            : "border-transparent bg-[#222] text-gray-500"
+                        ? "border-[var(--color-brand-red)] bg-black text-[var(--color-impact-yellow)]"
+                        : "border-transparent bg-[#222] text-gray-500"
                         }`}
                 >
                     近くのコマ
@@ -55,8 +71,8 @@ export default function SelectPanelPage() {
                 <button
                     onClick={() => setActiveTab("another")}
                     className={`flex-1 py-3 font-bold text-center border-b-4 transition-all ${activeTab === "another"
-                            ? "border-[var(--color-brand-red)] bg-black text-[var(--color-impact-yellow)]"
-                            : "border-transparent bg-[#222] text-gray-500"
+                        ? "border-[var(--color-brand-red)] bg-black text-[var(--color-impact-yellow)]"
+                        : "border-transparent bg-[#222] text-gray-500"
                         }`}
                 >
                     別の巻から
@@ -64,37 +80,67 @@ export default function SelectPanelPage() {
             </div>
 
             {/* Grid Area based on Tab */}
-            <div className="flex-1 flex flex-col gap-4 p-4">
-                {(activeTab === "nearby" ? ALL_PANELS : ANOTHER_VOLUME_PANELS).map(panel => {
-                    const isSelected = selected.includes(panel.id);
-                    return (
-                        <div
-                            key={panel.id}
-                            onClick={() => toggleSelect(panel.id)}
-                            className={`relative cursor-pointer transition-all ${isSelected
-                                ? "ring-4 ring-[var(--color-impact-yellow)] shadow-[0_0_0_8px_var(--color-brand-red)] z-10"
-                                : "border-4 border-[var(--color-deep-black)]"
-                                }`}
-                        >
-                            <img
-                                src={panel.src}
-                                className={`w-full h-auto object-cover transition-all ${!isSelected ? "grayscale opacity-80" : ""}`}
-                                alt="Panel"
+            <div className="flex-1 w-full flex justify-center py-6 px-4 bg-[#f0f0f0] pb-40">
+                {/* The "Page" Layout (Matching /read view) */}
+                <div className="w-full max-w-lg bg-white shadow-[8px_8px_0_var(--color-brand-red)] border-4 border-black p-2 flex flex-col gap-2 relative">
+
+                    {/* Top Panel (Wide) */}
+                    <SelectablePanel
+                        id={activeTab === "nearby" ? "p1" : "a3"}
+                        src={activeTab === "nearby" ? "/assets/panels/panel-city.png" : "/assets/panels/panel-city.png"}
+                        className="w-full h-32 md:h-48"
+                        selected={selected}
+                        toggleSelect={toggleSelect}
+                    />
+
+                    {/* Middle Row (Split) */}
+                    <div className="flex gap-2 h-28 md:h-40">
+                        {/* Left split */}
+                        <SelectablePanel
+                            id={activeTab === "nearby" ? "p4" : "a1"}
+                            src={activeTab === "nearby" ? "/assets/panels/panel-shock.png" : "/assets/panels/panel-shock.png"}
+                            className="w-2/5 h-full"
+                            selected={selected}
+                            toggleSelect={toggleSelect}
+                        />
+                        {/* Right split */}
+                        <SelectablePanel
+                            id={activeTab === "nearby" ? "p2" : "a2"}
+                            src={activeTab === "nearby" ? "/assets/panels/panel-noodles.png" : "/assets/panels/panel-noodles.png"}
+                            className="w-3/5 h-full"
+                            selected={selected}
+                            toggleSelect={toggleSelect}
+                        />
+                    </div>
+
+                    {/* Bottom Panel (Action) */}
+                    <SelectablePanel
+                        id={activeTab === "nearby" ? "p3" : "a4"}
+                        src={activeTab === "nearby" ? "/assets/panels/panel-food.png" : "/assets/panels/panel-food.png"}
+                        className="w-full h-40 md:h-56"
+                        selected={selected}
+                        toggleSelect={toggleSelect}
+                    />
+
+                    {activeTab === "another" && (
+                        <div className="flex gap-2 h-32 md:h-48 mt-2">
+                            <SelectablePanel
+                                id="a5"
+                                src="/assets/panels/panel-shock.png"
+                                className="w-1/2 h-full"
+                                selected={selected}
+                                toggleSelect={toggleSelect}
                             />
-
-                            <div className={`absolute top-4 right-4 w-10 h-10 border-4 flex items-center justify-center transition-all ${isSelected ? "border-[var(--color-deep-black)] bg-[var(--color-impact-yellow)] text-black" : "border-white bg-black/50 text-transparent"
-                                }`}>
-                                <Check strokeWidth={4} />
-                            </div>
-
-                            {!isSelected && (
-                                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/80 text-[var(--color-impact-yellow)] px-4 py-2 font-black rounded-full border-2 border-[var(--color-impact-yellow)]">
-                                    タップして選択
-                                </div>
-                            )}
+                            <SelectablePanel
+                                id="a6"
+                                src="/assets/panels/panel-city.png"
+                                className="w-1/2 h-full"
+                                selected={selected}
+                                toggleSelect={toggleSelect}
+                            />
                         </div>
-                    );
-                })}
+                    )}
+                </div>
             </div>
 
             {/* Fixed bottom action */}
