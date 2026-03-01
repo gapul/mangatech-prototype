@@ -50,12 +50,12 @@ export default function MangaPanel({ id, src, alt, className = "" }: MangaPanelP
             <motion.div
                 animate={isPressing ? { scale: 0.95 } : { scale: 1 }}
                 transition={{ duration: 0.2 }}
-                className="w-full relative"
+                className="w-full h-full relative"
             >
                 <img
                     src={src}
                     alt={alt}
-                    className={`w-full h-full object-cover transition-all duration-300 ${isPressing ? "grayscale contrast-125 scale-105" : ""
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${isPressing ? "grayscale contrast-125 scale-105" : ""
                         }`}
                     draggable={false}
                 />
