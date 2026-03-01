@@ -11,27 +11,57 @@ export default function CommentSheetPage() {
     const panelId = params.panelId as string;
     const [activeTab, setActiveTab] = useState<"popular" | "recent">("popular");
 
-    // Mock comments (Would come from API in real implementation)
+    // Expanded Mock comments with DiceBear Anime/Manga avatars
     const comments = [
         {
             id: "c1",
             user: "考察班リーダー",
-            avatar: "🧐",
+            avatar: "https://api.dicebear.com/9.x/micah/svg?seed=Kousatsu&backgroundColor=F2CB05",
             text: "この右下の影、明らかに1話のアレとリンクしてる。鳥肌立ったわ...",
             likes: 1240,
             isLiked: true,
             time: "2時間前",
-            tags: ["神回", "伏線回収"]
+            tags: ["💡 考察", "⚠️ ネタバレあり"]
         },
         {
             id: "c2",
             user: "マンガオタク",
-            avatar: "🔥",
+            avatar: "https://api.dicebear.com/9.x/micah/svg?seed=Otaku&backgroundColor=F20505",
             text: "展開エグすぎる。心臓持たん。",
             likes: 853,
             isLiked: false,
             time: "5時間前",
+            tags: ["😂 小ネタ"]
+        },
+        {
+            id: "c3",
+            user: "絵描きマン",
+            avatar: "https://api.dicebear.com/9.x/micah/svg?seed=Artist&backgroundColor=0d0d0d",
+            text: "ここの構図、パースの取り方が天才的すぎる。とりあえず模写した！",
+            likes: 412,
+            isLiked: true,
+            time: "8時間前",
+            tags: ["🎨 二次創作"]
+        },
+        {
+            id: "c4",
+            user: "初見読者",
+            avatar: "https://api.dicebear.com/9.x/micah/svg?seed=Newbie&backgroundColor=cccccc",
+            text: "えっ、嘘でしょ... ここからどうなるの！？",
+            likes: 125,
+            isLiked: false,
+            time: "12時間前",
             tags: []
+        },
+        {
+            id: "c5",
+            user: "古参ファン",
+            avatar: "https://api.dicebear.com/9.x/micah/svg?seed=Veteran&backgroundColor=D93232",
+            text: "3年前のインタビューで先生が言ってた「あいつの秘密」ってこれのことだったのか...",
+            likes: 3105,
+            isLiked: true,
+            time: "1日前",
+            tags: ["💡 考察", "神回"]
         }
     ];
 
@@ -72,7 +102,11 @@ export default function CommentSheetPage() {
                     <div key={comment.id} className={`p-4 border-4 border-black bg-white shadow-[4px_4px_0_var(--color-brand-red)] ${idx % 2 !== 0 ? 'translate-x-[2px]' : '-translate-x-[2px]'}`}>
                         <div className="flex justify-between items-start mb-2">
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-lg">{comment.avatar}</div>
+                                <img
+                                    src={comment.avatar}
+                                    alt={comment.user}
+                                    className="w-10 h-10 rounded-full border-2 border-black bg-white object-cover"
+                                />
                                 <span className="font-bold text-sm">{comment.user}</span>
                             </div>
                             <span className="text-xs font-bold text-gray-500">{comment.time}</span>

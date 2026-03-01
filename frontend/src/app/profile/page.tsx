@@ -34,8 +34,12 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="flex items-center gap-4 relative z-10">
-                    <div className="w-20 h-20 bg-[var(--color-impact-yellow)] border-4 border-white flex items-center justify-center text-4xl shadow-[4px_4px_0_var(--color-brand-red)]">
-                        😎
+                    <div className="w-20 h-20 border-4 border-white shadow-[4px_4px_0_var(--color-brand-red)] bg-white overflow-hidden">
+                        <img
+                            src="https://api.dicebear.com/9.x/micah/svg?seed=Kousatsu&backgroundColor=F2CB05"
+                            alt="考察班リーダー"
+                            className="w-full h-full object-cover"
+                        />
                     </div>
                     <div>
                         <h2 className="text-3xl font-black italic">考察班リーダー</h2>
