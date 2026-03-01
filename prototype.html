@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KOMA LINK - EXPLOSIVE PROTOTYPE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>KOMA LINK - INTERACTIVE MOBILE PROTOTYPE</title>
   <style>
     :root {
       --brand-red: #F20505;
@@ -20,11 +20,14 @@
       padding: 0;
     }
 
+    html,
     body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       font-family: 'Helvetica Neue', 'Arial', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
       background-color: var(--deep-black);
       color: var(--clean-white);
-      overflow-x: hidden;
       /* Halftone Background */
       background-image: radial-gradient(var(--clean-white) 10%, transparent 11%), radial-gradient(var(--clean-white) 10%, transparent 11%);
       background-size: 8px 8px;
@@ -32,9 +35,8 @@
       background-blend-mode: overlay;
     }
 
-    /* Overlay to darken halftone */
     .bg-overlay {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100vw;
@@ -43,112 +45,39 @@
       z-index: -1;
     }
 
-    /* Main Container */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 40px;
-    }
-
-    /* Header / Logo */
-    .glorious-header {
-      text-align: center;
-      margin-bottom: 60px;
-      position: relative;
-      padding: 40px 0;
-      overflow: hidden;
-      border: 4px solid var(--clean-white);
-      background: var(--brand-red);
-      transform: skew(-2deg);
-      box-shadow: 12px 12px 0px var(--impact-yellow);
-    }
-
-    .glorious-header::before {
-      content: '';
+    /* Single Page View System */
+    .app-view {
       position: absolute;
-      top: -50%;
-      left: -50%;
-      right: -50%;
-      bottom: -50%;
-      background: repeating-conic-gradient(from 0deg,
-          transparent 0deg 10deg,
-          rgba(0, 0, 0, 0.1) 10deg 15deg);
-      animation: spin 60s linear infinite;
-    }
-
-    @keyframes spin {
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    .glorious-header h1 {
-      font-size: 5rem;
-      font-weight: 900;
-      color: var(--clean-white);
-      letter-spacing: 0.05em;
-      position: relative;
-      z-index: 10;
-      text-shadow: 4px 4px 0px var(--deep-black), 8px 8px 0px var(--dark-red);
-      font-style: italic;
-    }
-
-    .glorious-header p {
-      position: relative;
-      z-index: 10;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--impact-yellow);
-      margin-top: 10px;
-      text-shadow: 2px 2px 0px var(--deep-black);
-      background: var(--deep-black);
-      display: inline-block;
-      padding: 4px 16px;
-      transform: rotate(-1deg);
-    }
-
-    /* Grid */
-    .prototype-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 50px;
-      align-items: start;
-    }
-
-    /* Phone Frame */
-    .phone {
-      width: 360px;
-      height: 740px;
-      background: var(--deep-black);
-      border: 8px solid var(--clean-white);
-      border-radius: 40px;
-      position: relative;
-      margin: 0 auto;
-      overflow: hidden;
-      box-shadow: 20px 20px 0px var(--brand-red);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
+      background: var(--deep-black);
+      z-index: 1;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s 0.3s, opacity 0.3s ease, transform 0.3s ease;
+      transform: translateX(10%);
     }
 
-    .phone:hover {
-      transform: translateY(-10px) rotate(1deg) scale(1.02);
-      box-shadow: 25px 25px 0px var(--impact-yellow);
+    .app-view.active {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 10;
     }
 
-    .phone-title {
-      position: absolute;
-      top: -20px;
-      left: -10px;
-      background: var(--impact-yellow);
-      color: var(--deep-black);
-      font-size: 1.2rem;
-      font-weight: 900;
-      padding: 10px 20px;
-      border: 4px solid var(--deep-black);
-      transform: rotate(-4deg);
-      z-index: 100;
-      box-shadow: 4px 4px 0px var(--brand-red);
+    /* Exceptions for overlays like Comment Sheet */
+    #view-2.app-view {
+      background: rgba(0, 0, 0, 0.6);
+      transform: translateY(100%);
+    }
+
+    #view-2.app-view.active {
+      transform: translateY(0);
     }
 
     /* Inner Screen Setup */
@@ -158,14 +87,11 @@
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-width: none;
-      /* Firefox */
     }
 
     .screen::-webkit-scrollbar {
       display: none;
     }
-
-    /* Chrome */
 
     /* Shared UI Elements */
     .status-bar {
@@ -187,6 +113,7 @@
       align-items: center;
       justify-content: space-between;
       font-weight: 900;
+      flex-shrink: 0;
     }
 
     .nav-title {
@@ -199,9 +126,11 @@
       font-weight: 900;
       font-size: 1.2rem;
       cursor: pointer;
+      padding: 8px;
+      /* enlarge touch target */
+      margin: -8px;
     }
 
-    /* CTA Button (Thick, Brutalist) */
     .cta-btn {
       background: var(--brand-red);
       color: var(--clean-white);
@@ -213,7 +142,7 @@
       border-radius: 8px;
       box-shadow: 4px 4px 0px var(--deep-black);
       cursor: pointer;
-      transition: all 0.1s;
+      transition: transform 0.1s, box-shadow 0.1s;
     }
 
     .cta-btn:active {
@@ -221,7 +150,6 @@
       box-shadow: 0px 0px 0px var(--deep-black);
     }
 
-    /* Sticker Badge */
     .sticker {
       position: absolute;
       background: var(--impact-yellow);
@@ -237,7 +165,6 @@
       z-index: 10;
     }
 
-    /* Manga Speech Bubble */
     .speech-bubble {
       position: relative;
       background: var(--clean-white);
@@ -272,7 +199,7 @@
       z-index: 1;
     }
 
-    /* ================== SCREEN 1: READER ================== */
+    /* Screen 1 */
     .s1-reader {
       background: var(--deep-black);
     }
@@ -307,6 +234,7 @@
       transform: scale(1.02);
       z-index: 5;
       animation: pulse-border 2s infinite;
+      cursor: pointer;
     }
 
     @keyframes pulse-border {
@@ -339,14 +267,7 @@
       backdrop-filter: blur(4px);
     }
 
-    /* ================== SCREEN 2: COMMENT SHEET ================== */
-    .s2-overlay {
-      background: url('assets/panels/panel-noodles.png') center/cover;
-      filter: grayscale(100%) brightness(0.3);
-      position: absolute;
-      inset: 0;
-    }
-
+    /* Screen 2 */
     .comment-sheet {
       position: absolute;
       bottom: 0;
@@ -368,6 +289,7 @@
       background: var(--deep-black);
       margin: 12px auto;
       border-radius: 10px;
+      cursor: pointer;
     }
 
     .sheet-header {
@@ -384,6 +306,7 @@
       display: flex;
       border-bottom: 3px solid var(--deep-black);
       background: #f0f0f0;
+      flex-shrink: 0;
     }
 
     .tab {
@@ -431,6 +354,8 @@
       align-items: center;
       font-weight: 900;
       border: 2px solid var(--brand-red);
+      cursor: pointer;
+      flex-shrink: 0;
     }
 
     .comment-content {
@@ -463,6 +388,7 @@
       color: var(--brand-red);
       font-weight: 900;
       font-size: 0.8rem;
+      cursor: pointer;
     }
 
     .heart-icon {
@@ -473,9 +399,10 @@
       padding: 16px;
       background: var(--clean-white);
       border-top: 3px solid var(--deep-black);
+      flex-shrink: 0;
     }
 
-    /* ================== SCREEN 3: COMPOSER ================== */
+    /* Screen 3 */
     .s3-composer {
       background: var(--clean-white);
       color: var(--deep-black);
@@ -493,6 +420,7 @@
     .composer-body {
       padding: 20px;
       flex: 1;
+      overflow-y: auto;
     }
 
     .selected-panel-mini {
@@ -503,6 +431,7 @@
       transform: rotate(-3deg);
       box-shadow: 4px 4px 0px var(--brand-red);
       filter: grayscale(100%);
+      cursor: pointer;
     }
 
     .text-input {
@@ -516,7 +445,6 @@
       margin-top: 20px;
       resize: none;
       background: #fff8e1;
-      /* slight yellow tint */
     }
 
     .upload-area {
@@ -542,6 +470,7 @@
       border-radius: 50px;
       font-weight: 900;
       font-size: 0.8rem;
+      cursor: pointer;
     }
 
     .tag-chip.active {
@@ -553,7 +482,7 @@
       color: var(--clean-white);
     }
 
-    /* ================== SCREEN 4: MULTI-SELECT ================== */
+    /* Screen 4 */
     .s4-select {
       background: var(--deep-black);
       display: flex;
@@ -573,6 +502,7 @@
     .p-card {
       border: 3px solid var(--clean-white);
       position: relative;
+      cursor: pointer;
     }
 
     .p-card img {
@@ -619,9 +549,10 @@
       justify-content: space-between;
       align-items: center;
       font-weight: 900;
+      flex-shrink: 0;
     }
 
-    /* ================== SCREEN 5: MY PROFILE ================== */
+    /* Screen 5 & 6 */
     .s5-profile {
       background: var(--clean-white);
       color: var(--deep-black);
@@ -633,10 +564,11 @@
     .profile-hero {
       background: var(--deep-black);
       color: var(--clean-white);
-      padding: 30px 20px;
+      padding: 30px 20px 20px;
       position: relative;
       border-bottom: 6px solid var(--brand-red);
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .profile-hero::before {
@@ -666,6 +598,11 @@
       z-index: 2;
     }
 
+    .p-avatar-alt {
+      background: var(--deep-black);
+      color: var(--clean-white);
+    }
+
     .p-name {
       font-size: 1.4rem;
       font-weight: 900;
@@ -693,22 +630,7 @@
       display: flex;
       background: #eee;
       border-bottom: 3px solid var(--deep-black);
-    }
-
-    .p-tab {
-      flex: 1;
-      text-align: center;
-      padding: 12px;
-      font-weight: 900;
-      border-right: 3px solid var(--deep-black);
-    }
-
-    .p-tab:last-child {
-      border-right: none;
-    }
-
-    .p-tab.active {
-      background: var(--clean-white);
+      flex-shrink: 0;
     }
 
     .feed-list {
@@ -724,7 +646,6 @@
       padding: 12px;
       margin-bottom: 16px;
       box-shadow: 4px 4px 0px var(--brand-red);
-      position: relative;
       display: flex;
       gap: 12px;
     }
@@ -735,6 +656,7 @@
       object-fit: cover;
       border: 2px solid var(--deep-black);
       filter: grayscale(100%);
+      flex-shrink: 0;
     }
 
     .feed-content {
@@ -757,15 +679,9 @@
       border: 1px solid var(--deep-black);
     }
 
-    /* ================== SCREEN 6: OTHER PROFILE ================== */
     .s6-profile .profile-hero {
       background: var(--brand-red);
       border-bottom-color: var(--deep-black);
-    }
-
-    .p-avatar-alt {
-      background: var(--deep-black);
-      color: var(--clean-white);
     }
 
     /* Comic Effects Layers */
@@ -781,268 +697,208 @@
 <body>
   <div class="bg-overlay"></div>
 
-  <div class="container">
-
-    <header class="glorious-header">
-      <h1>KOMA LINK</h1>
-      <p>爆発的 UI プロトタイプ</p>
-    </header>
-
-    <div class="prototype-grid">
-
-      <!-- 1. 読書画面 -->
-      <div class="phone">
-        <div class="phone-title">① 読書画面</div>
-        <div class="status-bar"><span>9:41</span><span>LTE 100%</span></div>
-        <div class="nav-bar">
-          <span class="btn-icon">←</span>
-          <span class="nav-title">ブラックジャックによろしく #1</span>
-          <span class="btn-icon">⋮</span>
+  <!-- 1. 読書画面 -->
+  <div id="view-1" class="app-view active">
+    <div class="status-bar"><span>9:41</span><span>LTE 100%</span></div>
+    <div class="nav-bar">
+      <span class="btn-icon">←</span>
+      <span class="nav-title">ブラックジャックによろしく #1</span>
+      <span class="btn-icon" onclick="navigateTo('view-5')"
+        style="font-size:1rem; border:2px solid #fff; border-radius:50%; width:30px; height:30px; display:flex; align-items:center; justify-content:center;">Y</span>
+    </div>
+    <div class="screen s1-reader">
+      <div class="s1-panels">
+        <div class="manga-panel">
+          <span class="sticker" style="top:10px; right:10px;">💬 32件</span>
+          <img src="assets/panels/panel-city.png" alt="City panel">
         </div>
-        <div class="screen s1-reader">
-          <div class="s1-panels">
-            <div class="manga-panel">
-              <span class="sticker" style="top:10px; right:10px;">💬 32件</span>
-              <img src="assets/panels/panel-city.png" alt="City panel">
-            </div>
-            <div class="manga-panel panel-focus">
-              <div class="fx-speedlines"></div>
-              <img src="assets/panels/panel-noodles.png" alt="Noodle panel">
-              <div class="s1-hint">長押しで白熱のコメント欄へ！</div>
-            </div>
-            <div class="manga-panel">
-              <span class="sticker" style="top:10px; right:10px; background:var(--clean-white);">💬 12件</span>
-              <img src="assets/panels/panel-food.png" alt="Food panel">
-            </div>
-            <div class="manga-panel">
-              <img src="assets/panels/panel-shock.png" alt="Shock panel">
-            </div>
-          </div>
+        <!-- Touchable Panel -->
+        <div class="manga-panel panel-focus" onclick="navigateTo('view-2')">
+          <div class="fx-speedlines"></div>
+          <img src="assets/panels/panel-noodles.png" alt="Noodle panel">
+          <div class="s1-hint">長押し(タップ)で白熱のコメント欄へ！</div>
+        </div>
+        <div class="manga-panel">
+          <span class="sticker" style="top:10px; right:10px; background:var(--clean-white);">💬 12件</span>
+          <img src="assets/panels/panel-food.png" alt="Food panel">
+        </div>
+        <div class="manga-panel">
+          <img src="assets/panels/panel-shock.png" alt="Shock panel">
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- 2. コメント一覧シート -->
-      <div class="phone">
-        <div class="phone-title">② コメント一覧</div>
-        <div class="screen">
-          <div class="s2-overlay"></div>
-          <div class="comment-sheet">
-            <div class="sheet-handle"></div>
-            <div class="sheet-header">
-              <span>×</span>
-              <span>コメント (1,402)</span>
-              <span>⋯</span>
-            </div>
-            <div class="tabs">
-              <div class="tab active">いいジャン順</div>
-              <div class="tab">新着順</div>
-            </div>
-            <div class="comment-list">
-              <div class="comment-item">
-                <div class="avatar">み</div>
-                <div class="comment-content">
-                  <div class="comment-name">みゃーご <span style="color:var(--brand-red);">★</span></div>
-                  <div class="comment-text">このタイミングでマイナス出てくるのすごい…作者天才か！</div>
-                  <div class="comment-meta">2026/3/1 00:01</div>
-                </div>
-                <div class="like-btn">
-                  <span class="heart-icon">❤</span>
-                  <span>1.5K</span>
-                </div>
-              </div>
-              <div class="comment-item">
-                <div class="avatar" style="background:var(--brand-red);">孤</div>
-                <div class="comment-content">
-                  <div class="comment-name">孤爪</div>
-                  <div class="comment-text">このコマ単体でポスターにしたいレベルの構図。</div>
-                  <div class="comment-meta">2026/3/1 00:03</div>
-                </div>
-                <div class="like-btn">
-                  <span class="heart-icon">❤</span>
-                  <span>1.2K</span>
-                </div>
-              </div>
-              <div class="speech-bubble">
-                ここは伏線！！単行本3巻のあのシーンに繋がってるぞ！
-              </div>
-              <div class="comment-item">
-                <div class="avatar" style="background:var(--impact-yellow); color:var(--deep-black);">グ</div>
-                <div class="comment-content">
-                  <div class="comment-name">グミ</div>
-                  <div class="comment-text">理解者枠に収まる名言に笑う</div>
-                  <div class="comment-meta">2026/3/1 00:05</div>
-                </div>
-                <div class="like-btn">
-                  <span class="heart-icon" style="color:#aaa;">♡</span>
-                  <span style="color:#666;">978</span>
-                </div>
-              </div>
-            </div>
-            <div class="bottom-cta-area">
-              <div class="cta-btn">❤ いいジャンして応援コメント！</div>
-            </div>
-          </div>
+  <!-- 2. コメント一覧シート -->
+  <div id="view-2" class="app-view">
+    <div style="flex:1" onclick="navigateTo('view-1')"></div> <!-- Tap outside to close -->
+    <div class="comment-sheet">
+      <div class="sheet-handle" onclick="navigateTo('view-1')"></div>
+      <div class="sheet-header">
+        <span class="btn-icon" onclick="navigateTo('view-1')">×</span>
+        <span>コメント (1,402)</span>
+        <span class="btn-icon">⋯</span>
+      </div>
+      <div class="tabs">
+        <div class="tab active">いいジャン順</div>
+        <div class="tab">新着順</div>
+      </div>
+      <div class="comment-list" id="global-comment-list">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="bottom-cta-area">
+        <div class="cta-btn" onclick="navigateTo('view-3')">❤ いいジャンして応援コメント！</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. コメント投稿画面 -->
+  <div id="view-3" class="app-view">
+    <div class="status-bar" style="color:var(--deep-black); background:var(--clean-white);">
+      <span>9:41</span><span>LTE</span></div>
+    <div class="nav-bar s3-nav">
+      <span class="btn-icon" onclick="navigateTo('view-2')">×</span>
+      <span class="nav-title">熱い想いをぶつけろ</span>
+      <span style="color:var(--brand-red); font-size:0.9rem; font-weight:bold;">下書き</span>
+    </div>
+    <div class="screen s3-composer">
+      <div class="composer-body">
+        <div style="display:flex; gap:10px; cursor:pointer;" onclick="navigateTo('view-4')">
+          <img src="assets/panels/panel-noodles.png" class="selected-panel-mini">
+          <img src="assets/panels/panel-shock.png" class="selected-panel-mini"
+            style="transform:rotate(5deg); border-color:var(--brand-red);">
+          <div style="align-self:center; font-weight:bold; font-size:2rem; font-style:italic; color:var(--deep-black);">
+            +</div>
+        </div>
+        <textarea class="text-input" placeholder="考察・感想・二次創作の意図などを書いてください..."></textarea>
+        <div class="upload-area">
+          📷 画像 / 動画を追加<br><br><span style="font-size:0.8rem; color:#666;">(ファンアート・コラ画もOK！）</span>
+        </div>
+        <div class="tags-container">
+          <div class="tag-chip active">💡 考察</div>
+          <div class="tag-chip">🎨 二次創作</div>
+          <div class="tag-chip">😂 小ネタ</div>
+          <div class="tag-chip danger">⚠️ ネタバレあり</div>
+        </div>
+        <div class="cta-btn" onclick="navigateTo('view-2')"
+          style="box-shadow: 4px 4px 0px var(--brand-red); background:var(--deep-black);">🔥 投稿する</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 複数コマ選択画面 -->
+  <div id="view-4" class="app-view">
+    <div class="status-bar"><span>9:41</span><span>LTE 100%</span></div>
+    <div class="nav-bar">
+      <span class="btn-icon" onclick="navigateTo('view-3')">←</span>
+      <span class="nav-title">関連コマを選択</span>
+      <span></span>
+    </div>
+    <div class="screen s4-select">
+      <div class="tabs" style="border-bottom:none;">
+        <div class="tab active"
+          style="background:var(--deep-black); color:var(--impact-yellow); border-bottom-color:var(--brand-red);">近くのコマ
+        </div>
+        <div class="tab" style="background:#222; color:#fff; border-color:#222;">別の巻から</div>
+      </div>
+      <div class="grid-select">
+        <div class="p-card selected">
+          <img src="assets/panels/panel-noodles.png">
+          <div class="check-mark">✓</div>
+        </div>
+        <div class="p-card">
+          <img src="assets/panels/panel-food.png">
+          <div class="check-mark">✓</div>
+        </div>
+        <div class="p-card selected">
+          <img src="assets/panels/panel-shock.png">
+          <div class="check-mark">✓</div>
+        </div>
+        <div class="p-card">
+          <img src="assets/panels/panel-city.png">
+          <div class="check-mark">✓</div>
+        </div>
+        <div class="p-card">
+          <img src="assets/panels/panel-food.png">
+          <div class="check-mark">✓</div>
         </div>
       </div>
-
-      <!-- 3. コメント投稿画面 -->
-      <div class="phone">
-        <div class="phone-title">③ 投稿画面</div>
-        <div class="status-bar" style="color:var(--deep-black);"><span>9:41</span><span>LTE</span></div>
-        <div class="nav-bar s3-nav">
-          <span class="btn-icon">×</span>
-          <span class="nav-title">熱い想いをぶつけろ</span>
-          <span style="color:var(--brand-red); font-size:0.9rem;">下書き</span>
-        </div>
-        <div class="screen s3-composer">
-          <div class="composer-body">
-            <div style="display:flex; gap:10px;">
-              <img src="assets/panels/panel-noodles.png" class="selected-panel-mini">
-              <img src="assets/panels/panel-shock.png" class="selected-panel-mini"
-                style="transform:rotate(5deg); border-color:var(--brand-red);">
-            </div>
-
-            <textarea class="text-input" placeholder="考察・感想・二次創作の意図などを書いてください..."></textarea>
-
-            <div class="upload-area">
-              📷 画像 / 動画を追加<br><br><span style="font-size:0.8rem; color:#666;">(ファンアート・コラ画もOK！）</span>
-            </div>
-
-            <div class="tags-container">
-              <div class="tag-chip active">💡 考察</div>
-              <div class="tag-chip">🎨 二次創作</div>
-              <div class="tag-chip">😂 小ネタ</div>
-              <div class="tag-chip danger">⚠️ ネタバレあり</div>
-            </div>
-
-            <div class="cta-btn" style="box-shadow: 4px 4px 0px var(--brand-red); background:var(--deep-black);">🔥 投稿する
-            </div>
-          </div>
+      <div class="fixed-bottom-bar">
+        <span>選択中: <strong style="color:var(--brand-red); font-size:1.2rem;">2</strong> コマ</span>
+        <div class="cta-btn" onclick="navigateTo('view-3')"
+          style="padding: 10px 24px; font-size:0.9rem; background:var(--impact-yellow); color:var(--deep-black);">決定
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- 4. 複数コマ選択画面 -->
-      <div class="phone">
-        <div class="phone-title">④ コマ選択</div>
-        <div class="status-bar"><span>9:41</span></div>
-        <div class="nav-bar">
-          <span class="btn-icon">←</span>
-          <span class="nav-title">関連コマを選択</span>
-          <span></span>
+  <!-- 5. 自分の投稿一覧 -->
+  <div id="view-5" class="app-view">
+    <div class="status-bar" style="background:var(--deep-black);"><span>9:41</span><span>LTE 100%</span></div>
+    <div class="nav-bar" style="background:var(--deep-black);">
+      <span class="btn-icon" onclick="navigateTo('view-1')">←</span>
+      <span class="nav-title">My Profile</span>
+      <span>⚙️</span>
+    </div>
+    <div class="screen s5-profile">
+      <div class="profile-hero">
+        <div class="p-avatar">Y</div>
+        <div class="p-name">ユキ / 編集者見習い</div>
+        <div class="p-stats">
+          <span>投稿 <strong>12</strong></span>
+          <span>いいジャン <strong>248</strong></span>
+          <span>リスト <strong>3</strong></span>
         </div>
-        <div class="screen s4-select">
-          <div class="tabs" style="border-bottom:none;">
-            <div class="tab active"
-              style="background:var(--deep-black); color:var(--impact-yellow); border-bottom-color:var(--brand-red);">
-              近くのコマ</div>
-            <div class="tab" style="background:#222; color:#fff; border-color:#222;">別の巻から</div>
-          </div>
-          <div class="grid-select">
-            <div class="p-card selected">
-              <img src="assets/panels/panel-noodles.png">
-              <div class="check-mark">✓</div>
-            </div>
-            <div class="p-card">
-              <img src="assets/panels/panel-food.png">
-              <div class="check-mark">✓</div>
-            </div>
-            <div class="p-card selected">
-              <img src="assets/panels/panel-shock.png">
-              <div class="check-mark">✓</div>
-            </div>
-            <div class="p-card">
-              <img src="assets/panels/panel-city.png">
-              <div class="check-mark">✓</div>
-            </div>
-            <div class="p-card">
-              <img src="assets/panels/panel-food.png">
-              <div class="check-mark">✓</div>
-            </div>
-          </div>
-          <div class="fixed-bottom-bar">
-            <span>選択中: <strong style="color:var(--brand-red); font-size:1.2rem;">2</strong> コマ</span>
-            <div class="cta-btn"
-              style="padding: 10px 24px; font-size:0.9rem; background:var(--impact-yellow); color:var(--deep-black);">決定
-            </div>
-          </div>
-        </div>
+        <span class="sticker" style="bottom:10px; right:10px; background:var(--clean-white);">🔥 KOMA MASTER</span>
       </div>
-
-      <!-- 5. 自分の投稿一覧 -->
-      <div class="phone">
-        <div class="phone-title">⑤ My Profile</div>
-        <div class="screen s5-profile">
-          <div class="profile-hero">
-            <div class="p-avatar">Y</div>
-            <div class="p-name">ユキ / 編集者見習い</div>
-            <div class="p-stats">
-              <span>投稿 <strong>12</strong></span>
-              <span>いいジャン <strong>248</strong></span>
-              <span>リスト <strong>3</strong></span>
-            </div>
-            <span class="sticker" style="bottom:10px; right:10px; background:var(--clean-white);">🔥 KOMA MASTER</span>
-          </div>
-          <div class="p-tabs">
-            <div class="p-tab active">投稿履歴</div>
-            <div class="p-tab">いいジャン</div>
-          </div>
-          <div class="feed-list">
-            <div class="feed-item">
-              <img src="assets/panels/panel-city.png" class="feed-img">
-              <div class="feed-content">
-                <div class="feed-text">病院の外観で社会背景を説明してるのが熱い。</div>
-                <div class="feed-source">#1 街角</div>
-              </div>
-            </div>
-            <div class="feed-item">
-              <img src="assets/panels/panel-noodles.png" class="feed-img" style="border-color:var(--brand-red);">
-              <div class="feed-content">
-                <div class="feed-text">ここは伏線！次のページとの対比が最高。</div>
-                <div class="feed-source">#1 食事</div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="p-tabs">
+        <div class="p-tab active">投稿履歴</div>
+        <div class="p-tab">いいジャン</div>
       </div>
-
-      <!-- 6. 他人のプロフィール -->
-      <div class="phone">
-        <div class="phone-title">⑥ Other Profile</div>
-        <div class="screen s5-profile s6-profile">
-          <div class="profile-hero">
-            <div class="p-avatar p-avatar-alt">M</div>
-            <div class="p-name">みゃーご</div>
-            <p style="font-size:0.8rem; font-weight:700; margin-top:4px;">「考察と伏線回収が大好物です」</p>
-            <div class="p-stats">
-              <span>フォロワー <strong>2.1K</strong></span>
-              <span>リスト <strong>5</strong></span>
-            </div>
-            <span class="sticker" style="bottom:10px; right:10px; transform:rotate(5deg);">😎 考察班</span>
-          </div>
-          <div class="p-tabs">
-            <div class="p-tab active">考察リスト</div>
-            <div class="p-tab">投稿一覧</div>
-          </div>
-          <div class="feed-list">
-            <div class="feed-item" style="border-style:dashed;">
-              <img src="assets/panels/panel-food.png" class="feed-img">
-              <div class="feed-content">
-                <div class="feed-text">この食事シーンは、後の対比を仕込んでる。</div>
-                <div class="feed-source">💬 1,506 いいジャン</div>
-              </div>
-            </div>
-            <div class="cta-btn"
-              style="background:#fff; color:var(--deep-black); padding:10px; font-size:0.9rem; margin-top:10px;">＋
-              フォローする</div>
-          </div>
-        </div>
+      <div class="feed-list s5-feed-list">
+        <!-- Rendered by JS -->
       </div>
+    </div>
+  </div>
 
+  <!-- 6. 他人のプロフィール -->
+  <div id="view-6" class="app-view">
+    <div class="status-bar" style="background:var(--brand-red);"><span>9:41</span><span>LTE 100%</span></div>
+    <div class="nav-bar" style="background:var(--brand-red); border-bottom-color:var(--deep-black);">
+      <span class="btn-icon" onclick="navigateTo('view-2')">←</span>
+      <span class="nav-title">Other Profile</span>
+      <span></span>
+    </div>
+    <div class="screen s5-profile s6-profile">
+      <div class="profile-hero">
+        <div class="p-avatar p-avatar-alt">M</div>
+        <div class="p-name">みゃーご</div>
+        <p style="font-size:0.8rem; font-weight:700; margin-top:4px;">「考察と伏線回収が大好物です」</p>
+        <div class="p-stats">
+          <span>フォロワー <strong>2.1K</strong></span>
+          <span>リスト <strong>5</strong></span>
+        </div>
+        <span class="sticker" style="bottom:10px; right:10px; transform:rotate(5deg);">😎 考察班</span>
+      </div>
+      <div class="p-tabs">
+        <div class="p-tab active">考察リスト</div>
+        <div class="p-tab">投稿一覧</div>
+      </div>
+      <div class="feed-list s6-feed-list">
+        <!-- Rendered by JS -->
+      </div>
     </div>
   </div>
 
   <script src="api/mock-data.js"></script>
   <script>
+    // SPA App Navigation Logic
+    function navigateTo(viewId) {
+      document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+    }
+
+    // Wrap user logic
     (() => {
       // ─── ユーティリティ ───
       const formatLikes = n => n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K' : String(n);
@@ -1055,6 +911,7 @@
       const readerPanels = document.querySelectorAll('.s1-reader .manga-panel');
       const panelOrder = ['panel-001', 'panel-002', 'panel-003', 'panel-004'];
       readerPanels.forEach((el, i) => {
+        if (!MOCK || !MOCK.data) return;
         const panel = MOCK.data.panels.find(p => p.id === panelOrder[i]);
         if (!panel) return;
         const sticker = el.querySelector('.sticker');
@@ -1062,52 +919,59 @@
       });
 
       // ─── Screen 2: コメント一覧 - 動的レンダリング ───
-      const commentListEl = document.querySelector('.comment-sheet .comment-list');
+      const commentListEl = document.getElementById('global-comment-list');
       let currentSort = 'popular';
       const currentPanelId = 'panel-002'; // noodlesパネル
 
       function renderComments(sort) {
+        if (!MOCK) return;
         const result = MOCK.getCommentsByPanel(currentPanelId, { sort, limit: 6 });
         const totalEl = document.querySelector('.sheet-header span:nth-child(2)');
         if (totalEl) totalEl.textContent = `コメント (${result.total})`;
 
-        commentListEl.innerHTML = '';
-        result.comments.forEach((c, i) => {
-          const avatarStyles = [
-            '',
-            'background:var(--brand-red);',
-            'background:var(--impact-yellow); color:var(--deep-black);',
-            'background:#333;',
-          ];
-          const item = document.createElement('div');
-          item.className = 'comment-item';
-          const isLiked = MOCK.data.likes.some(l => l.user_id === 'user-005' && l.comment_id === c.id);
-          item.innerHTML = `
-            <div class="avatar" style="${avatarStyles[i % avatarStyles.length]}">${c.user.avatar_text}</div>
-            <div class="comment-content">
-              <div class="comment-name">${c.user.display_name}${c.like_count > 1000 ? ' <span style="color:var(--brand-red);">★</span>' : ''}</div>
-              <div class="comment-text">${c.spoiler ? '<span style="background:#333;color:#333;border-radius:4px;padding:0 4px;cursor:pointer;" onclick="this.style.color=\'#fff\'">ネタバレ: ' + c.text + '</span>' : c.text}</div>
-              ${c.tags.length > 0 ? '<div style="margin-bottom:4px;">' + c.tags.map(t => '<span style="background:var(--impact-yellow);color:var(--deep-black);font-size:0.65rem;padding:2px 6px;border:1px solid var(--deep-black);font-weight:900;margin-right:4px;">' + t + '</span>').join('') + '</div>' : ''}
-              <div class="comment-meta">${formatDate(c.created_at)}${c.reply_count > 0 ? ' · 返信 ' + c.reply_count + '件' : ''}</div>
-            </div>
-            <div class="like-btn" data-comment-id="${c.id}" style="cursor:pointer;">
-              <span class="heart-icon">${isLiked ? '❤' : '♡'}</span>
-              <span>${formatLikes(c.like_count)}</span>
-            </div>
-          `;
-          // いいねクリック
-          const likeBtn = item.querySelector('.like-btn');
-          likeBtn.addEventListener('click', () => {
-            const result = MOCK.toggleLike(c.id);
-            if (!result.error) {
-              renderComments(currentSort);
-            }
+        if (commentListEl) {
+          commentListEl.innerHTML = '';
+          result.comments.forEach((c, i) => {
+            const avatarStyles = [
+              '',
+              'background:var(--brand-red);',
+              'background:var(--impact-yellow); color:var(--deep-black);',
+              'background:#333;',
+            ];
+            const item = document.createElement('div');
+            item.className = 'comment-item';
+            const isLiked = MOCK.data.likes.some(l => l.user_id === 'user-005' && l.comment_id === c.id);
+            // Dynamic avatar click for other profile demo
+            const isOther = (c.user.avatar_text === 'み');
+
+            item.innerHTML = `
+              <div class="avatar" style="${avatarStyles[i % avatarStyles.length]}" onclick="${isOther ? "navigateTo('view-6')" : ""}">${c.user.avatar_text}</div>
+              <div class="comment-content">
+                <div class="comment-name" onclick="${isOther ? "navigateTo('view-6')" : ""}" style="cursor:pointer;">${c.user.display_name}${c.like_count > 1000 ? ' <span style="color:var(--brand-red);">★</span>' : ''}</div>
+                <div class="comment-text">${c.spoiler ? '<span style="background:#333;color:#333;border-radius:4px;padding:0 4px;cursor:pointer;" onclick="this.style.color=\'#fff\'">ネタバレ: ' + c.text + '</span>' : c.text}</div>
+                ${c.tags.length > 0 ? '<div style="margin-bottom:4px;">' + c.tags.map(t => '<span style="background:var(--impact-yellow);color:var(--deep-black);font-size:0.65rem;padding:2px 6px;border:1px solid var(--deep-black);font-weight:900;margin-right:4px;">' + t + '</span>').join('') + '</div>' : ''}
+                <div class="comment-meta">${formatDate(c.created_at)}${c.reply_count > 0 ? ' · 返信 ' + c.reply_count + '件' : ''}</div>
+              </div>
+              <div class="like-btn" data-comment-id="${c.id}" style="cursor:pointer;">
+                <span class="heart-icon">${isLiked ? '❤' : '♡'}</span>
+                <span>${formatLikes(c.like_count)}</span>
+              </div>
+            `;
+            const likeBtn = item.querySelector('.like-btn');
+            likeBtn.addEventListener('click', () => {
+              const result = MOCK.toggleLike(c.id);
+              if (!result.error) {
+                renderComments(currentSort);
+              }
+            });
+            commentListEl.appendChild(item);
           });
-          commentListEl.appendChild(item);
-        });
+        }
       }
 
-      renderComments('popular');
+      if (typeof MOCK !== 'undefined') {
+        renderComments('popular');
+      }
 
       // タブ切り替え
       const tabs = document.querySelectorAll('.comment-sheet .tabs .tab');
@@ -1124,7 +988,6 @@
       const pCards = document.querySelectorAll('.grid-select .p-card');
       const countEl = document.querySelector('.fixed-bottom-bar strong');
       pCards.forEach(card => {
-        card.style.cursor = 'pointer';
         card.addEventListener('click', () => {
           card.classList.toggle('selected');
           const selected = document.querySelectorAll('.grid-select .p-card.selected').length;
@@ -1132,13 +995,15 @@
         });
       });
 
+      if (typeof MOCK === 'undefined') return;
+
       // ─── Screen 5: マイプロフィール - モックデータから描画 ───
       const myProfile = MOCK.getUserProfile('user-005');
       const myPostsResult = MOCK.getUserComments('user-005', { type: 'posted' });
       const myLikedResult = MOCK.getUserComments('user-005', { type: 'liked' });
 
       if (myProfile && !myProfile.error) {
-        const s5 = document.querySelector('.s5-profile:not(.s6-profile)');
+        const s5 = document.querySelector('#view-5 .s5-profile');
         if (s5) {
           const nameEl = s5.querySelector('.p-name');
           if (nameEl) nameEl.textContent = myProfile.display_name;
@@ -1152,8 +1017,7 @@
           }
         }
 
-        // マイプロフィールのフィード
-        const myFeedList = document.querySelector('.s5-profile:not(.s6-profile) .feed-list');
+        const myFeedList = document.querySelector('.s5-feed-list');
         if (myFeedList && myPostsResult.comments.length > 0) {
           myFeedList.innerHTML = '';
           myPostsResult.comments.forEach(c => {
@@ -1172,8 +1036,7 @@
           });
         }
 
-        // タブ切り替え（マイプロフィール）
-        const myTabs = document.querySelectorAll('.s5-profile:not(.s6-profile) .p-tab');
+        const myTabs = document.querySelectorAll('#view-5 .p-tab');
         myTabs.forEach(tab => {
           tab.addEventListener('click', () => {
             myTabs.forEach(t => t.classList.remove('active'));
@@ -1206,7 +1069,7 @@
       const otherPosts = MOCK.getUserComments('user-001', { type: 'posted' });
 
       if (otherProfile && !otherProfile.error) {
-        const s6 = document.querySelector('.s6-profile');
+        const s6 = document.querySelector('#view-6 .s6-profile');
         if (s6) {
           const nameEl = s6.querySelector('.p-name');
           if (nameEl) nameEl.textContent = otherProfile.display_name;
@@ -1218,8 +1081,7 @@
             `;
           }
 
-          // 他人のフィードリスト
-          const otherFeedList = s6.querySelector('.feed-list');
+          const otherFeedList = document.querySelector('.s6-feed-list');
           if (otherFeedList && otherPosts.comments.length > 0) {
             otherFeedList.innerHTML = '';
             otherPosts.comments.slice(0, 3).forEach(c => {
@@ -1237,10 +1099,9 @@
               `;
               otherFeedList.appendChild(item);
             });
-            // フォローボタン
             const followBtn = document.createElement('div');
             followBtn.className = 'cta-btn';
-            followBtn.style.cssText = 'background:#fff;color:var(--deep-black);padding:10px;font-size:0.9rem;margin-top:10px;';
+            followBtn.style.cssText = 'background:#fff;color:var(--deep-black);padding:10px;font-size:0.9rem;margin-top:10px;text-align:center;font-weight:bold;cursor:pointer;border:3px solid var(--deep-black);box-shadow:4px 4px 0px var(--brand-red);';
             followBtn.textContent = '＋ フォローする';
             followBtn.addEventListener('click', () => {
               followBtn.style.background = 'var(--impact-yellow)';
@@ -1253,20 +1114,11 @@
 
       // ─── タグチップのインタラクション ───
       document.querySelectorAll('.tag-chip').forEach(chip => {
-        chip.style.cursor = 'pointer';
         chip.addEventListener('click', () => {
           chip.classList.toggle('active');
         });
       });
 
-      // ─── デバッグ: コンソールにモックAPI動作確認 ───
-      console.log('[KOMA LINK] Mock data loaded:', {
-        users: MOCK.data.users.length,
-        comments: MOCK.data.comments.length,
-        panels: MOCK.data.panels.length,
-      });
-      console.log('[KOMA LINK] Popular comments:', MOCK.getPopularComments({ limit: 3 }));
-      console.log('[KOMA LINK] Related panels for panel-002:', MOCK.getRelatedPanels('panel-002'));
     })();
   </script>
 </body>

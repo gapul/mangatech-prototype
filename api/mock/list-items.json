@@ -1,0 +1,8 @@
+[
+  { "id": "li-001", "list_id": "list-001", "comment_id": "comment-008", "added_at": "2026-02-20T10:05:00+09:00" },
+  { "id": "li-002", "list_id": "list-001", "comment_id": "comment-010", "added_at": "2026-02-27T23:10:00+09:00" },
+  { "id": "li-003", "list_id": "list-002", "comment_id": "comment-017", "added_at": "2026-02-27T22:30:00+09:00" },
+  { "id": "li-004", "list_id": "list-002", "comment_id": "comment-016", "added_at": "2026-02-28T14:30:00+09:00" },
+  { "id": "li-005", "list_id": "list-003", "comment_id": "comment-006", "added_at": "2026-02-28T20:30:00+09:00" },
+  { "id": "li-006", "list_id": "list-003", "comment_id": "comment-021", "added_at": "2026-02-26T20:30:00+09:00" }
+]

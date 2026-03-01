@@ -1,0 +1,6 @@
+[
+  { "id": "pl-001", "comment_id": "comment-010", "panel_id": "panel-002" },
+  { "id": "pl-002", "comment_id": "comment-010", "panel_id": "panel-004" },
+  { "id": "pl-003", "comment_id": "comment-019", "panel_id": "panel-004" },
+  { "id": "pl-004", "comment_id": "comment-019", "panel_id": "panel-001" }
+]

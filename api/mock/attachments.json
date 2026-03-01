@@ -1,0 +1,23 @@
+[
+  {
+    "id": "attach-001",
+    "comment_id": "comment-006",
+    "type": "image",
+    "url": "assets/panels/panel-city.png",
+    "thumbnail_url": "assets/panels/panel-city.png"
+  },
+  {
+    "id": "attach-002",
+    "comment_id": "comment-012",
+    "type": "image",
+    "url": "assets/panels/panel-noodles.png",
+    "thumbnail_url": "assets/panels/panel-noodles.png"
+  },
+  {
+    "id": "attach-003",
+    "comment_id": "comment-021",
+    "type": "image",
+    "url": "assets/panels/panel-shock.png",
+    "thumbnail_url": "assets/panels/panel-shock.png"
+  }
+]

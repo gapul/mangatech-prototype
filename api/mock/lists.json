@@ -1,0 +1,37 @@
+[
+  {
+    "id": "list-001",
+    "user_id": "user-005",
+    "title": "伏線まとめ",
+    "description": "ブラックジャックによろしくの伏線をまとめたリスト",
+    "created_at": "2026-02-20T10:00:00+09:00"
+  },
+  {
+    "id": "list-002",
+    "user_id": "user-005",
+    "title": "名シーン集",
+    "description": "個人的に好きなシーン",
+    "created_at": "2026-02-22T14:00:00+09:00"
+  },
+  {
+    "id": "list-003",
+    "user_id": "user-005",
+    "title": "ファンアートまとめ",
+    "description": "気になったファンアートを集めたリスト",
+    "created_at": "2026-02-25T18:00:00+09:00"
+  },
+  {
+    "id": "list-004",
+    "user_id": "user-001",
+    "title": "考察ベスト",
+    "description": "今週の考察ベスト",
+    "created_at": "2026-02-26T10:00:00+09:00"
+  },
+  {
+    "id": "list-005",
+    "user_id": "user-001",
+    "title": "伏線回収シーン",
+    "description": "伏線が回収されたシーン集",
+    "created_at": "2026-02-27T08:00:00+09:00"
+  }
+]
