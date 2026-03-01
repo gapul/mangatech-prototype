@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>KOMA LINK - INTERACTIVE MOBILE PROTOTYPE</title>
+  <title>ジャンがり - INTERACTIVE MOBILE PROTOTYPE</title>
   <style>
     :root {
       --brand-red: #F20505;
@@ -755,7 +755,8 @@
   <!-- 3. コメント投稿画面 -->
   <div id="view-3" class="app-view">
     <div class="status-bar" style="color:var(--deep-black); background:var(--clean-white);">
-      <span>9:41</span><span>LTE</span></div>
+      <span>9:41</span><span>LTE</span>
+    </div>
     <div class="nav-bar s3-nav">
       <span class="btn-icon" onclick="navigateTo('view-2')">×</span>
       <span class="nav-title">熱い想いをぶつけろ</span>
@@ -825,7 +826,7 @@
       </div>
       <div class="fixed-bottom-bar">
         <span>選択中: <strong style="color:var(--brand-red); font-size:1.2rem;">2</strong> コマ</span>
-        <div class="cta-btn" onclick="navigateTo('view-3')"
+        <div class="cta-btn" onclick="applySelectionAndNav()"
           style="padding: 10px 24px; font-size:0.9rem; background:var(--impact-yellow); color:var(--deep-black);">決定
         </div>
       </div>
@@ -994,6 +995,19 @@
           if (countEl) countEl.textContent = selected;
         });
       });
+
+      window.applySelectionAndNav = function () {
+        const selectedImgs = Array.from(document.querySelectorAll('.grid-select .p-card.selected img')).map(img => img.src);
+        if (selectedImgs.length > 0) {
+          const container = document.querySelector('.s3-composer .composer-body > div:first-child');
+          if (container) {
+            container.innerHTML = selectedImgs.map((src, i) =>
+              `<img src="${src}" class="selected-panel-mini" style="transform:rotate(${i % 2 === 0 ? '-3deg' : '5deg'}); ${i > 0 ? 'margin-left:-40px; border-color:var(--brand-red);' : ''}">`
+            ).join('') + `<div style="align-self:center; font-weight:bold; font-size:2rem; margin-left:10px; font-style:italic; color:var(--deep-black);">+</div>`;
+          }
+        }
+        navigateTo('view-3');
+      };
 
       if (typeof MOCK === 'undefined') return;
 
