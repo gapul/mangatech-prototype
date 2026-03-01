@@ -12,7 +12,7 @@ export default function CommentSheetPage() {
     const [activeTab, setActiveTab] = useState<"popular" | "recent">("popular");
 
     // Expanded Mock comments with DiceBear Anime/Manga avatars
-    const comments = [
+    const [comments, setComments] = useState([
         {
             id: "c1",
             user: "考察班リーダー",
@@ -63,7 +63,20 @@ export default function CommentSheetPage() {
             time: "1日前",
             tags: ["💡 考察", "神回"]
         }
-    ];
+    ]);
+
+    const handleLike = (id: string) => {
+        setComments(comments.map(c => {
+            if (c.id === id) {
+                return {
+                    ...c,
+                    isLiked: !c.isLiked,
+                    likes: c.isLiked ? c.likes - 1 : c.likes + 1
+                };
+            }
+            return c;
+        }));
+    };
 
     return (
         <div className="flex flex-col min-h-screen relative z-10 bg-[var(--color-clean-white)] text-[var(--color-deep-black)]">
@@ -125,26 +138,30 @@ export default function CommentSheetPage() {
                         </div>
 
                         <div className="flex items-center justify-between border-t-2 border-dashed border-gray-300 pt-2">
-                            <button className="flex items-center gap-1 font-bold">
+                            <button
+                                onClick={() => handleLike(comment.id)}
+                                className="flex items-center gap-1 font-bold active:scale-95 transition-transform"
+                            >
                                 <Heart className={`w-5 h-5 ${comment.isLiked ? 'fill-[var(--color-brand-red)] text-[var(--color-brand-red)]' : 'text-gray-400'}`} />
                                 <span className={comment.isLiked ? 'text-[var(--color-brand-red)]' : 'text-gray-500'}>{comment.likes}</span>
                             </button>
-                            <button className="flex items-center gap-1 text-gray-500 font-bold text-sm">
+                            <button className="flex items-center gap-1 text-gray-500 font-bold text-sm active:scale-95">
                                 <MessageSquare className="w-4 h-4" /> 返信
                             </button>
                         </div>
                     </div>
                 ))}
             </div>
-
-            {/* Floating Action Button (Composer Trigger) */}
-            <div className="fixed bottom-24 right-4 z-50">
-                <Link
-                    href={`/comments/${panelId}/compose`}
-                    className="w-16 h-16 rounded-full bg-[var(--color-brand-red)] text-white border-4 border-black shadow-[4px_4px_0_var(--color-impact-yellow)] flex items-center justify-center active:translate-y-1 active:shadow-none transition-all"
-                >
-                    <PenSquare className="w-7 h-7" />
-                </Link>
+            {/* Bottom CTA Area for Composing */}
+            <div className="fixed bottom-[64px] left-0 w-full p-4 bg-[var(--color-clean-white)] border-t-4 border-[var(--color-deep-black)] flex justify-center z-50">
+                <div className="w-full max-w-[480px]">
+                    <Link
+                        href={`/comments/${panelId}/compose`}
+                        className="block w-full text-center bg-[var(--color-brand-red)] text-[var(--color-clean-white)] font-black text-xl py-4 border-4 border-[var(--color-deep-black)] rounded-xl shadow-[4px_4px_0_var(--color-deep-black)] active:translate-y-1 active:shadow-none transition-all"
+                    >
+                        ❤ いいジャンして応援コメント！
+                    </Link>
+                </div>
             </div>
 
         </div>
