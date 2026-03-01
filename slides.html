@@ -536,17 +536,17 @@
     <!-- 13. コミュニティ機能 -->
     <div class="slide">
       <div class="slide-content grid-layout">
-        <div class="text-block" style="padding-right: 60px;">
+        <div class="text-block" style="padding-right: 40px;">
           <div class="kicker">13. COMMUNITY FEATURES</div>
-          <h2 class="slide-title" style="font-size:4.5rem; margin-bottom: 20px;">熱量を可視化する<br>機能群</h2>
-          <p style="font-size: 1.5rem; margin-bottom:15px;">「いいジャン」「返信」「リスト」による、読者間のライトな交流。</p>
-          <ul>
+          <h2 class="slide-title" style="font-size:3.5rem; margin-bottom: 20px;">熱量を可視化する<br>機能群</h2>
+          <p style="font-size: 1.3rem; margin-bottom:15px;">「いいジャン」「返信」「リスト」による交流。</p>
+          <ul style="font-size: 1.2rem;">
             <li><b>My Comment History:</b><br>自分のお気に入りコマや考察をポートフォリオ化。</li>
-            <li><b>Other Profiles:</b><br>考察が鋭いユーザー、面白い二次創作を描くユーザーをフォローし、他者の視点からさらにマンガを楽しむ。</li>
+            <li><b>Other Profiles:</b><br>考察が鋭いユーザーをフォローし、他者の視点からさらにマンガを楽しむ。</li>
           </ul>
         </div>
         <div class="visual-block">
-          <img src="assets/panels/panel-noodles.png" class="mockup-img" style="transform:scale(0.85) rotate(-3deg);">
+          <img src="assets/panels/panel-noodles.png" class="mockup-img" style="transform:scale(0.8) rotate(-3deg);">
         </div>
       </div>
     </div>
@@ -577,8 +577,10 @@
     <div class="slide">
       <div class="slide-content grid-layout">
         <div class="visual-block">
+          <img src="assets/panels/panel-shock.png" class="mockup-img"
+            style="transform:rotate(-4deg); filter:grayscale(100%); margin-bottom: 20px;">
           <div class="info-card"
-            style="font-family:monospace; background:#111; color:#0f0; border-color:#333; transform:rotate(-2deg);">
+            style="font-family:monospace; background:#111; color:#0f0; border-color:#333; transform:rotate(-2deg); padding: 15px; font-size: 0.9rem;">
             const PanelSchema = {<br>
             &nbsp;&nbsp;id: Uuid,<br>
             &nbsp;&nbsp;work_id: String,<br>
@@ -589,10 +591,10 @@
         </div>
         <div class="text-block">
           <div class="kicker">15. BACKEND MVP</div>
-          <h2 class="slide-title">高速APIとスケーラビリティ</h2>
+          <h2 class="slide-title" style="font-size:4rem;">APIと<br>スケーラビリティ</h2>
           <p>何百万もの読者が同時にマンガを読む環境でのコメント取得。</p>
           <ul>
-            <li><b>GraphQL / gRPC:</b> コマIDをキーとした超高速なコメントの非同期フェッチ。表示遅延でマンガのテンポを落とさない。</li>
+            <li><b>GraphQL / gRPC:</b> コマIDをキーとした超高速なコメントの非同期フェッチ。表示遅延させない。</li>
             <li><b>データレイヤー:</b> リレーショナル（ユーザー・作品）とNoSQL（膨大なUGC）のハイブリッド構成。</li>
           </ul>
         </div>
@@ -604,7 +606,7 @@
       <div class="slide-content grid-layout">
         <div class="text-block">
           <div class="kicker">16. MODERATION</div>
-          <h2 class="slide-title">権利・安全運用の<br>徹底管理</h2>
+          <h2 class="slide-title" style="font-size: 4.5rem;">権利・安全運用の<br>徹底管理</h2>
           <p>安心・安全なファンコミュニティを維持するために。</p>
           <ul>
             <li><b>二次創作ガイドライン:</b> R18や公序良俗に反するコンテンツの明確な禁止。</li>
@@ -612,8 +614,10 @@
             <li><b>ユーザー自治システム:</b> 悪質な投稿に対する通報・ミュート機能。違反者の一発BANを許容する厳しい運営基準。</li>
           </ul>
         </div>
-        <div class="visual-block">
+        <div class="visual-block text-center">
           <div class="sticker-badge" style="background:var(--deep-black); color:var(--clean-white);">👮‍♀ 治安維持</div>
+          <img src="assets/panels/panel-city.png" class="mockup-img"
+            style="transform:rotate(5deg); display:inline-block;">
         </div>
       </div>
     </div>
@@ -670,7 +674,7 @@
         </div>
         <div class="text-block">
           <div class="kicker">18. COMPETITIVE ADVANTAGE</div>
-          <h2 class="slide-title">公式の「強み」を<br>最大化する</h2>
+          <h2 class="slide-title" style="font-size: 4rem;">公式の「強み」を<br>最大化する</h2>
           <p>外部ツールでは成し得ない「本編とシームレスにつながる体験」。</p>
           <ul>
             <li><b>アル:</b> 外部SNSへの切り出し共有。話題はXのTLに流れて消える。</li>
@@ -707,7 +711,7 @@
     <div class="slide light-mode">
       <div class="slide-content text-center">
         <div class="kicker">20. SCALABILITY & GLOBAL</div>
-        <h2 class="slide-title" style="text-align:center;">日本発・世界最強の<br>マンガコミュニティへ</h2>
+        <h2 class="slide-title" style="text-align:center; font-size:4rem;">日本発・世界最強の<br>マンガコミュニティへ</h2>
         <div class="cards-grid" style="margin-top: 60px;">
           <div class="info-card">
             <h3>技術的スケーラビリティ</h3>
