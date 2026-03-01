@@ -8,9 +8,10 @@ interface MangaPanelProps {
     id: string;
     src: string;
     alt: string;
+    className?: string;
 }
 
-export default function MangaPanel({ id, src, alt }: MangaPanelProps) {
+export default function MangaPanel({ id, src, alt, className = "" }: MangaPanelProps) {
     const [isPressing, setIsPressing] = useState(false);
     const pressTimer = useRef<NodeJS.Timeout | null>(null);
     const router = useRouter();
@@ -40,7 +41,7 @@ export default function MangaPanel({ id, src, alt }: MangaPanelProps) {
 
     return (
         <div
-            className="relative w-full mb-4 cursor-pointer select-none origin-center"
+            className={`relative cursor-pointer select-none origin-center overflow-hidden ${className}`}
             onPointerDown={handlePressStart}
             onPointerUp={handlePressEnd}
             onPointerLeave={handlePressEnd}
@@ -54,7 +55,7 @@ export default function MangaPanel({ id, src, alt }: MangaPanelProps) {
                 <img
                     src={src}
                     alt={alt}
-                    className={`w-full h-auto object-cover transition-all duration-300 ${isPressing ? "grayscale contrast-125 border-4 border-[var(--color-impact-yellow)]" : ""
+                    className={`w-full h-full object-cover transition-all duration-300 ${isPressing ? "grayscale contrast-125 scale-105" : ""
                         }`}
                     draggable={false}
                 />
