@@ -12,9 +12,19 @@ const ALL_PANELS = [
     { id: "p4", src: "/assets/panels/panel-shock.png" },
 ];
 
+const ANOTHER_VOLUME_PANELS = [
+    { id: "a1", src: "/assets/panels/panel-shock.png" },
+    { id: "a2", src: "/assets/panels/panel-noodles.png" },
+    { id: "a3", src: "/assets/panels/panel-city.png" },
+    { id: "a4", src: "/assets/panels/panel-food.png" },
+    { id: "a5", src: "/assets/panels/panel-shock.png" },
+    { id: "a6", src: "/assets/panels/panel-city.png" },
+];
+
 export default function SelectPanelPage() {
     const router = useRouter();
     const [selected, setSelected] = useState<string[]>([]);
+    const [activeTab, setActiveTab] = useState<"nearby" | "another">("nearby");
 
     const toggleSelect = (id: string) => {
         if (selected.includes(id)) setSelected(selected.filter(p => p !== id));
@@ -33,24 +43,37 @@ export default function SelectPanelPage() {
             <Header title="コマを選択" showBack={true} />
 
             <div className="flex w-full border-b-4 border-black bg-[var(--color-deep-black)] sticky top-[72px] z-40">
-                <button className="flex-1 py-3 font-bold text-center border-b-4 border-[var(--color-brand-red)] bg-black text-[var(--color-impact-yellow)]">
+                <button
+                    onClick={() => setActiveTab("nearby")}
+                    className={`flex-1 py-3 font-bold text-center border-b-4 transition-all ${activeTab === "nearby"
+                            ? "border-[var(--color-brand-red)] bg-black text-[var(--color-impact-yellow)]"
+                            : "border-transparent bg-[#222] text-gray-500"
+                        }`}
+                >
                     近くのコマ
                 </button>
-                <button className="flex-1 py-3 font-bold text-center bg-[#222] text-white">
+                <button
+                    onClick={() => setActiveTab("another")}
+                    className={`flex-1 py-3 font-bold text-center border-b-4 transition-all ${activeTab === "another"
+                            ? "border-[var(--color-brand-red)] bg-black text-[var(--color-impact-yellow)]"
+                            : "border-transparent bg-[#222] text-gray-500"
+                        }`}
+                >
                     別の巻から
                 </button>
             </div>
 
+            {/* Grid Area based on Tab */}
             <div className="flex-1 flex flex-col gap-4 p-4">
-                {ALL_PANELS.map(panel => {
+                {(activeTab === "nearby" ? ALL_PANELS : ANOTHER_VOLUME_PANELS).map(panel => {
                     const isSelected = selected.includes(panel.id);
                     return (
                         <div
                             key={panel.id}
                             onClick={() => toggleSelect(panel.id)}
                             className={`relative cursor-pointer transition-all ${isSelected
-                                    ? "ring-4 ring-[var(--color-impact-yellow)] shadow-[0_0_0_8px_var(--color-brand-red)] z-10"
-                                    : "border-4 border-[var(--color-deep-black)]"
+                                ? "ring-4 ring-[var(--color-impact-yellow)] shadow-[0_0_0_8px_var(--color-brand-red)] z-10"
+                                : "border-4 border-[var(--color-deep-black)]"
                                 }`}
                         >
                             <img
@@ -84,8 +107,8 @@ export default function SelectPanelPage() {
                         onClick={handleConfirm}
                         disabled={selected.length === 0}
                         className={`px-8 py-3 font-black text-xl border-4 shadow-[4px_4px_0_var(--color-deep-black)] transition-all ${selected.length > 0
-                                ? "bg-[var(--color-impact-yellow)] text-black border-black active:translate-y-1 active:shadow-none"
-                                : "bg-gray-300 text-gray-500 border-gray-400 shadow-none"
+                            ? "bg-[var(--color-impact-yellow)] text-black border-black active:translate-y-1 active:shadow-none"
+                            : "bg-gray-300 text-gray-500 border-gray-400 shadow-none"
                             }`}
                     >
                         決定
