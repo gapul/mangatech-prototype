@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>KOMA LINK 企画提案書 - MangaTech 2026</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Oswald:wght@700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ========== ベース設定 ========== */
+    :root {
+      --brand-red: #F20505;
+      --dark-red: #D93232;
+      --impact-yellow: #F2CB05;
+      --deep-black: #0D0D0D;
+      --clean-white: #FFFEFE;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--deep-black);
+      line-height: 1.6;
+      background: #e0e0e0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ========== 印刷・A4ページ設定 ========== */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 15mm 20mm;
+      margin: 20px auto;
+      page-break-after: always;
+      position: relative;
+      background: var(--clean-white);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      /* 背景のはみ出し防止 */
+      z-index: 1;
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* ハーフトーン（網点）背景 - 全ページ共通 */
+    .page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(var(--deep-black) 1px, transparent 1px);
+      background-size: 8px 8px;
+      opacity: 0.04;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* ページ番号・フッター */
+    .page-number {
+      position: absolute;
+      bottom: 12mm;
+      right: 20mm;
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--deep-black);
+      -webkit-text-stroke: 1px var(--clean-white);
+      z-index: 10;
+    }
+
+    .page-footer {
+      position: absolute;
+      bottom: 15mm;
+      left: 20mm;
+      font-size: 10px;
+      font-weight: 900;
+      color: #999;
+      letter-spacing: 0.1em;
+      z-index: 10;
+    }
+
+    /* ========== グラフィック・エフェクト ========== */
+    /* ベタフラッシュ風の見出し背景 */
+    .bg-flash {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 150px;
+      height: 150px;
+      background: var(--impact-yellow);
+      border-radius: 50%;
+      z-index: -1;
+      filter: blur(40px);
+      opacity: 0.5;
+    }
+
+    /* スピードライン（集中線風） */
+    .speedlines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(90deg,
+          transparent,
+          transparent 40px,
+          rgba(0, 0, 0, 0.03) 40px,
+          rgba(0, 0, 0, 0.03) 42px);
+      z-index: -1;
+      pointer-events: none;
+      transform: skewX(-15deg);
+    }
+
+    /* ========== タイポグラフィ ========== */
+    h1 {
+      font-family: 'Oswald', 'Noto Sans JP', sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      font-style: italic;
+      color: var(--clean-white);
+      background: var(--deep-black);
+      display: inline-block;
+      padding: 4px 16px;
+      margin-bottom: 24px;
+      transform: skewX(-10deg);
+      border: 3px solid var(--deep-black);
+      box-shadow: 6px 6px 0 var(--brand-red);
+      letter-spacing: 0.05em;
+      position: relative;
+      z-index: 2;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--deep-black);
+      margin: 28px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2::before {
+      content: '';
+      display: block;
+      width: 8px;
+      height: 24px;
+      background: var(--impact-yellow);
+      transform: skewX(-15deg);
+      border: 2px solid var(--deep-black);
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 900;
+      margin: 16px 0 8px;
+      color: var(--deep-black);
+      border-bottom: 2px dashed #ccc;
+      padding-bottom: 4px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    ul,
+    ol {
+      margin: 8px 0 16px 24px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    strong {
+      font-weight: 900;
+      background: linear-gradient(transparent 60%, rgba(242, 203, 5, 0.4) 60%);
+    }
+
+    /* ========== コンポーネント ========== */
+
+    /* カード（コマ割り風） */
+    .card {
+      background: var(--clean-white);
+      border: 4px solid var(--deep-black);
+      padding: 16px;
+      margin: 16px 0;
+      position: relative;
+      box-shadow: 6px 6px 0 var(--deep-black);
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    /* 背景色付きカード */
+    .card-accent {
+      background: var(--brand-red);
+      color: var(--clean-white);
+      box-shadow: 6px 6px 0 var(--deep-black);
+      border-color: var(--deep-black);
+    }
+
+    .card-accent h3,
+    .card-accent p,
+    .card-accent strong {
+      color: var(--clean-white);
+      text-shadow: none;
+      background: none;
+      border-color: var(--clean-white);
+    }
+
+    .card-accent h3 {
+      border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .card-yellow {
+      background: var(--impact-yellow);
+      color: var(--deep-black);
+      box-shadow: 6px 6px 0 var(--deep-black);
+    }
+
+    .card-black {
+      background: var(--deep-black);
+      color: var(--clean-white);
+      box-shadow: 6px 6px 0 var(--brand-red);
+    }
+
+    .card-black h3,
+    .card-black p {
+      color: var(--clean-white);
+      border-color: #333;
+    }
+
+    /* 吹き出し風カード */
+    .speech-bubble {
+      background: #fff;
+      border: 3px solid var(--deep-black);
+      border-radius: 20px;
+      padding: 16px;
+      position: relative;
+      margin: 16px 0;
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 30px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-right: 3px solid var(--deep-black);
+      border-bottom: 3px solid var(--deep-black);
+      transform: rotate(45deg);
+    }
+
+    /* ハイライト・タグ */
+    .highlight {
+      background: var(--impact-yellow);
+      color: var(--deep-black);
+      padding: 2px 8px;
+      font-weight: 900;
+      border: 2px solid var(--deep-black);
+      transform: skewX(-10deg);
+      display: inline-block;
+      margin: 0 4px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #eee;
+      color: var(--deep-black);
+      border: 2px solid var(--deep-black);
+      padding: 2px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      border-radius: 0;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      box-shadow: 2px 2px 0 var(--deep-black);
+      transform: skewX(-5deg);
+    }
+
+    /* グリッドレイアウト */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 16px 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    /* テーブル（ブルータリスト） */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 16px 0;
+      font-size: 12px;
+      border: 3px solid var(--deep-black);
+      box-shadow: 4px 4px 0 var(--deep-black);
+      border-radius: 4px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    th {
+      background: var(--deep-black);
+      color: var(--clean-white);
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 900;
+      border-right: 1px solid #333;
+    }
+
+    th:last-child {
+      border-right: none;
+    }
+
+    td {
+      padding: 10px 12px;
+      border-bottom: 2px solid var(--deep-black);
+      border-right: 2px dotted #ccc;
+      font-weight: 500;
+    }
+
+    td:last-child {
+      border-right: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(242, 203, 5, 0.1);
+    }
+
+    /* ペルソナ */
+    .persona {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin: 20px 0;
+      padding: 16px;
+      border: 3px solid var(--deep-black);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .persona-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      flex-shrink: 0;
+      border: 3px solid var(--deep-black);
+      box-shadow: 4px 4px 0 var(--impact-yellow);
+      background: var(--clean-white);
+    }
+
+    /* フロー（矢印付きステップ） */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 20px 0;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .flow-step {
+      background: var(--clean-white);
+      color: var(--deep-black);
+      border: 3px solid var(--deep-black);
+      padding: 10px 14px;
+      border-radius: 4px;
+      text-align: center;
+      flex: 1;
+      box-shadow: 3px 3px 0 var(--brand-red);
+      transform: skewX(-5deg);
+    }
+
+    .flow-arrow {
+      color: var(--deep-black);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    /* ロードマップ配線 */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+      border-left: 4px solid var(--deep-black);
+      margin: 24px 0 24px 16px;
+    }
+
+    .timeline-item {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -44px;
+      /* 32 + 4/2 + 10 */
+      top: 0px;
+      width: 20px;
+      height: 20px;
+      background: var(--impact-yellow);
+      border: 4px solid var(--deep-black);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .timeline-date {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--brand-red);
+      background: var(--deep-black);
+      display: inline-block;
+      padding: 2px 10px;
+      color: #fff;
+      transform: skewX(-10deg);
+      margin-bottom: 8px;
+    }
+
+    /* ER図・データモデル */
+    .model-box {
+      background: var(--clean-white);
+      color: var(--deep-black);
+      border: 3px solid var(--deep-black);
+      padding: 8px 12px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 4px 4px 0 #ccc;
+      transform: skewX(-5deg);
+    }
+
+    /* プレースホルダー */
+    .placeholder {
+      border: 3px dashed #999;
+      background: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+      font-weight: 900;
+      margin: 12px 0;
+    }
+
+    /* ========== 表紙専用スタイル ========== */
+    .cover {
+      background: var(--deep-black);
+      color: var(--clean-white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40mm 20mm;
+      border: 10px solid var(--brand-red);
+      box-shadow: inset 0 0 0 10px var(--deep-black);
+    }
+
+    .cover::before {
+      background-image: radial-gradient(var(--clean-white) 1px, transparent 1px);
+      opacity: 0.1;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      background: var(--impact-yellow);
+      color: var(--deep-black);
+      padding: 8px 24px;
+      font-family: 'Oswald', 'Noto Sans JP', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      border: 4px solid var(--deep-black);
+      transform: skewX(-15deg) rotate(-2deg);
+      margin-bottom: 40px;
+      box-shadow: 4px 4px 0 var(--brand-red);
+    }
+
+    .cover-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 80px;
+      font-weight: 900;
+      font-style: italic;
+      color: var(--clean-white);
+      text-shadow: 6px 6px 0 var(--brand-red), -2px -2px 0 var(--deep-black), 2px -2px 0 var(--deep-black), -2px 2px 0 var(--deep-black), 2px 2px 0 var(--deep-black);
+      margin-bottom: 24px;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      transform: scaleY(1.1);
+    }
+
+    .cover-sub {
+      font-size: 22px;
+      color: var(--clean-white);
+      font-weight: 900;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 0 var(--deep-black);
+      background: var(--brand-red);
+      padding: 8px 16px;
+      border: 3px solid var(--deep-black);
+      transform: skewX(-10deg);
+    }
+
+    .cover-meta {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 2;
+      border-top: 2px dashed #666;
+      padding-top: 24px;
+      width: 80%;
+    }
+
+    /* 特殊演出用ステッカー */
+    .sticker {
+      position: absolute;
+      background: var(--brand-red);
+      color: #fff;
+      font-weight: 900;
+      font-family: 'Oswald', 'Noto Sans JP', sans-serif;
+      padding: 10px 16px;
+      border-radius: 50%;
+      border: 4px solid var(--deep-black);
+      box-shadow: 4px 4px 0 var(--impact-yellow);
+      transform: rotate(15deg);
+      z-index: 10;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* 印刷時のリセット */
+    @media print {
+      body {
+        background: none;
+      }
+
+      .page {
+        margin: 0;
+        box-shadow: none;
+        border: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== P1: 表紙 ===== -->
+  <div class="page cover">
+    <div class="speedlines"></div>
+    <div class="cover-badge">MangaTech 2026 応募企画</div>
+    <div class="sticker" style="top: 80px; right: 50px;">新感覚<br>SNS体験!!</div>
+    <div class="cover-logo">KOMA LINK</div>
+    <div class="cover-sub">コマ単位で感想・考察・二次創作を共有する<br>Jump+公式SNS</div>
+    <div class="cover-meta">
+      テーマ: ジャンプ+（読者体験向上・コミュニティ形成）<br>
+      提出日: 2026年3月<br>
+      応募者: <!-- ここに名前を記入 -->[応募者名]
+    </div>
+  </div>
+
+  <!-- ===== P2: エグゼクティブサマリー ===== -->
+  <div class="page">
+    <div class="bg-flash"></div>
+    <h1>Executive Summary</h1>
+    <div class="card card-accent">
+      <h3>KOMA LINK とは</h3>
+      <p><strong>マンガのコマ単位でコメント・考察・二次創作を共有できる、ジャンプ+内蔵型の読者コミュニティ機能</strong>です。話単位ではなく<span
+          class="highlight">コマ単位</span>でコメントを紐づけることで、読者同士の深い交流と作品への没入体験を実現します。</p>
+    </div>
+
+    <h2>解決する課題</h2>
+    <div class="grid-2">
+      <div class="card">
+        <div class="sticker" style="top:-15px; left:-15px; font-size:12px; padding:6px 10px;">読者の声</div>
+        <h3>読者のペイン</h3>
+        <ul>
+          <li>マンガの感想を共有したいが、SNSではネタバレが怖い</li>
+          <li>特定のコマについて語りたいのに、話単位のコメント欄しかない</li>
+          <li>二次創作を公開したいが著作権が不安</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="sticker"
+          style="top:-15px; left:-15px; font-size:12px; padding:6px 10px; background:var(--deep-black);">媒体の壁</div>
+        <h3>プラットフォームの課題</h3>
+        <ul>
+          <li>読者が「読んで終わり」になり、滞在時間が短い</li>
+          <li>読者コミュニティが外部SNSに分散</li>
+          <li>コメント欄が浅い交流に留まっている</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>提供価値</h2>
+    <div class="grid-3">
+      <div class="card card-black" style="text-align:center;">
+        <div style="font-size:32px; margin-bottom:8px;">🔒</div>
+        <h3 style="border-bottom-color:#444;">ネタバレ安心</h3>
+        <p style="font-size:11px;">既読範囲に応じた<br>自動制御</p>
+      </div>
+      <div class="card card-accent" style="text-align:center;">
+        <div style="font-size:32px; margin-bottom:8px;">🎯</div>
+        <h3>コマ単位</h3>
+        <p style="font-size:11px;">特定のコマに紐づく<br>精密な議論</p>
+      </div>
+      <div class="card card-yellow" style="text-align:center;">
+        <div style="font-size:32px; margin-bottom:8px;">🎨</div>
+        <h3>二次創作OK</h3>
+        <p style="font-size:11px;">公式プラットフォームで<br>安心投稿</p>
+      </div>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">2</span>
+  </div>
+
+  <!-- ===== P3: ペルソナ・ターゲット ===== -->
+  <div class="page">
+    <div class="speedlines" style="opacity: 0.5;"></div>
+    <h1>ターゲットユーザー</h1>
+
+    <div class="persona">
+      <div class="persona-icon">👦</div>
+      <div style="flex:1;">
+        <h3 style="border:none; margin-top:0;">ペルソナA: タクヤ（17歳・高校生男子）</h3>
+        <div class="speech-bubble" style="margin-top:0;">
+          <p>毎週ジャンプ+を欠かさず読む。学校にマンガ好きの友達が少なく、考察や感想を誰かと共有したい。Xでネタバレ投稿をして炎上した経験があり、安全に語れる場所を探している。</p>
+        </div>
+        <div><span class="tag">感想共有</span><span class="tag">ネタバレ回避</span><span class="tag"
+            style="background:var(--brand-red);color:#fff;">考察</span></div>
+      </div>
+    </div>
+
+    <div class="persona">
+      <div class="persona-icon">👩</div>
+      <div style="flex:1;">
+        <h3 style="border:none; margin-top:0;">ペルソナB: ミサキ（24歳・社会人女性）</h3>
+        <div class="speech-bubble" style="margin-top:0;">
+          <p>ジャンプ作品のファンアートを描くのが趣味。既存のSNSに投稿するとき、著作権侵害にならないか不安。公式が認めた場所で堂々と二次創作を共有したい。</p>
+        </div>
+        <div><span class="tag" style="background:var(--brand-red);color:#fff;">二次創作</span><span
+            class="tag">著作権安心</span><span class="tag">ファンアート</span></div>
+      </div>
+    </div>
+
+    <h2 style="margin-top:40px;">市場機会</h2>
+    <div class="card card-yellow">
+      <div class="sticker" style="top:-20px; right:-10px; font-size:14px; transform:rotate(-10deg);">特大の<br>ポテンシャル</div>
+      <p><strong>ジャンプ+のMAU（月間アクティブユーザー）は2,000万人超。</strong>しかし現在の読者交流機能は「話単位の簡素なコメント欄」のみ。読者のエンゲージメントとリテンションを高める余地は大きい。
+      </p>
+      <p>マンガアプリにおけるコミュニティ機能は、<strong>滞在時間の延長</strong>（広告収益増）と<strong>離脱率の低下</strong>（サブスク継続率向上）に直結します。</p>
+    </div>
+
+    <h2>ユーザージャーニー</h2>
+    <div class="flow">
+      <div class="flow-step">マンガを読む</div>
+      <div class="flow-arrow">➡</div>
+      <div class="flow-step">気になるコマを長押し</div>
+      <div class="flow-arrow">➡</div>
+      <div class="flow-step" style="background:var(--impact-yellow);">コメント閲覧・投稿</div>
+      <div class="flow-arrow">➡</div>
+      <div class="flow-step" style="background:var(--brand-red);color:#fff;">交流・発見</div>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">3</span>
+  </div>
+
+  <!-- ===== P4: プロダクトコンセプト ===== -->
+  <div class="page">
+    <h1>プロダクトコンセプト</h1>
+
+    <h2>コア・バリュー</h2>
+    <div class="card card-accent">
+      <p style="font-size:16px; font-weight:800; text-align:center; margin:8px 0;">「読む」から「語る」へ。ジャンプ+を、閲覧の場から<span
+          class="highlight">記録・交流・創作の場</span>に拡張する。</p>
+    </div>
+
+    <h2>既存の「コメント欄」との違い</h2>
+    <table>
+      <tr>
+        <th>観点</th>
+        <th>既存のコメント欄</th>
+        <th>KOMA LINK</th>
+      </tr>
+      <tr>
+        <td>コメントの粒度</td>
+        <td>話単位（1エピソード=1コメント欄）</td>
+        <td><strong>コマ単位</strong>（各コマに個別のコメント欄）</td>
+      </tr>
+      <tr>
+        <td>コメントの種類</td>
+        <td>テキストのみ</td>
+        <td><strong>テキスト・画像・動画</strong>（二次創作対応）</td>
+      </tr>
+      <tr>
+        <td>ネタバレ対策</td>
+        <td>なし or 自主的</td>
+        <td><strong>読進度連動の自動制御</strong></td>
+      </tr>
+      <tr>
+        <td>複数場面の言及</td>
+        <td>不可（テキストで説明）</td>
+        <td><strong>複数コマリンク</strong>で視覚的に紐付け</td>
+      </tr>
+      <tr>
+        <td>ユーザー間交流</td>
+        <td>リアクション程度</td>
+        <td><strong>いいね・返信・フォロー・リスト</strong></td>
+      </tr>
+      <tr>
+        <td>コンテンツ発見</td>
+        <td>なし</td>
+        <td><strong>人気コメントから名場面を発見</strong></td>
+      </tr>
+    </table>
+
+    <h2>3つの柱</h2>
+    <div class="grid-3">
+      <div class="card" style="border-top:4px solid var(--red);">
+        <h3>1. コマ単位コメント</h3>
+        <p style="font-size:12px;">特定のコマに紐づけて感想・考察を投稿。長押しで自然にアクセス。</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--yellow);">
+        <h3>2. ネタバレ安心設計</h3>
+        <p style="font-size:12px;">投稿時のフラグ必須化＋読進度に応じた自動フィルタリング。</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--black);">
+        <h3>3. 公式二次創作</h3>
+        <p style="font-size:12px;">画像・動画添付で、コマに紐づいたファンアートを公式に投稿可能。</p>
+      </div>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">4</span>
+  </div>
+
+  <!-- ===== P5: 機能詳細① ===== -->
+  <div class="page">
+    <div class="speedlines" style="opacity:0.3; transform:skewX(15deg);"></div>
+    <h1>機能詳細 (1/2)</h1>
+
+    <h2>1. コマ単位コメントシステム</h2>
+    <div class="card">
+      <div class="sticker"
+        style="top:-15px; right:20px; font-size:12px; transform:rotate(-5deg); background:var(--deep-black);">
+        長押しで<br>アクセス!</div>
+      <p>読書中にコマを<strong>長押し</strong>するだけで、そのコマに紐づいたコメント一覧がボトムシートで表示されます。</p>
+      <ul>
+        <li><strong>いいジャン順 / 新着順</strong>の切り替えタブ</li>
+        <li>各コメントに<strong>タグ</strong>（<span class="tag">考察</span><span class="tag">二次創作</span><span
+            class="tag">小ネタ</span>）</li>
+        <li><strong>いいね（いいジャン）</strong>と<strong>返信</strong>機能</li>
+        <li>コメントON/OFF切り替え（コメント非表示設定）</li>
+      </ul>
+    </div>
+
+    <h2>2. ネタバレ制御システム</h2>
+    <div class="card card-yellow">
+      <div class="sticker" style="top:-20px; right:10px; font-size:12px; background:var(--brand-red);">安心安全!!</div>
+      <h3>3段階のネタバレ防止</h3>
+      <ol>
+        <li><strong>投稿時</strong>: spoilerフラグの選択を必須化。「ネタバレあり」タグ選択時は自動でフラグON。</li>
+        <li><strong>表示時</strong>: ユーザーの読進度に応じて、未読コマに関するネタバレコメントを自動非表示。</li>
+        <li><strong>設定</strong>: ユーザーごとに「ネタバレ表示範囲」をカスタマイズ可能。</li>
+      </ol>
+    </div>
+
+    <h2>3. 複数コマリンク</h2>
+    <div class="card">
+      <p>1つのコメントに<strong>複数のコマ</strong>を紐づけられます。</p>
+      <div class="grid-2" style="margin-top:0;">
+        <div
+          style="background:rgba(242, 203, 5, 0.1); padding:12px; border:2px solid var(--deep-black); box-shadow:2px 2px 0 var(--deep-black);">
+          <h3 style="margin-top:0; border-bottom:1px solid #aaa;">近くのコマ</h3>
+          <p style="font-size:12px; margin-bottom:0;">同エピソード内の前後のコマを選択。場面間の対比や流れを考察するのに最適。</p>
+        </div>
+        <div
+          style="background:rgba(242, 203, 5, 0.1); padding:12px; border:2px solid var(--deep-black); box-shadow:2px 2px 0 var(--deep-black);">
+          <h3 style="margin-top:0; border-bottom:1px solid #aaa;">別の巻・別の作品から</h3>
+          <p style="font-size:12px; margin-bottom:0;">異なるエピソードや巻のコマを横断参照。伏線回収の発見・共有に活用。</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>4. 二次創作対応</h2>
+    <div class="card card-black">
+      <p style="color:#eee;">コメントにファンアート（画像）や動画を添付可能。公式プラットフォーム内で二次創作を共有できるため、著作権の不安なく堂々と投稿できます。</p>
+      <ul style="color:#ccc; margin-bottom:0;">
+        <li>対応形式: 画像（PNG/JPG/GIF）、動画（MP4、最大30秒）</li>
+        <li>1コメントあたり最大4ファイル添付可能</li>
+        <li>サムネイル自動生成</li>
+      </ul>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">5</span>
+  </div>
+
+  <!-- ===== P6: 機能詳細② ===== -->
+  <div class="page">
+    <h1>機能詳細 (2/2)</h1>
+
+    <h2>5. ユーザープロフィール</h2>
+    <div class="card">
+      <p>各ユーザーのプロフィールページでは以下が確認できます。</p>
+      <div class="grid-2">
+        <div>
+          <h3>自分のプロフィール</h3>
+          <ul>
+            <li>投稿したコメント一覧</li>
+            <li>いいジャンしたコメント一覧</li>
+            <li>作成したリスト</li>
+            <li>投稿数・獲得いいね数・リスト数</li>
+          </ul>
+        </div>
+        <div>
+          <h3>他人のプロフィール</h3>
+          <ul>
+            <li>投稿一覧の閲覧</li>
+            <li>フォロワー数・いいジャン率</li>
+            <li>フォロー機能</li>
+            <li>公開リストの閲覧</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h2>6. リスト機能</h2>
+    <div class="card">
+      <p>お気に入りのコメントを<strong>テーマ別のリスト</strong>にまとめて保存・公開できます。</p>
+      <ul>
+        <li>例: 「伏線まとめリスト」「名シーン集」「ファンアートまとめ」</li>
+        <li>他のユーザーが作ったリストも閲覧可能</li>
+        <li>リスト経由で新しい作品・名場面を発見できる</li>
+      </ul>
+    </div>
+
+    <h2>7. 人気コメント・トレンド</h2>
+    <div class="card">
+      <p>いいね数・返信数に基づいて<strong>話題のコメントをピックアップ</strong>。</p>
+      <ul>
+        <li>期間フィルタ（日間/週間/月間）</li>
+        <li>タグ別フィルタ（考察/二次創作/小ネタ）</li>
+        <li>話題のコメントから新しい作品や名場面に出会える</li>
+      </ul>
+    </div>
+
+    <h2>8. コメントON/OFF</h2>
+    <div class="card">
+      <p>コメントを見たくないユーザーのために、ワンタップでコメント表示を切り替え可能。読書体験を最優先にする設計です。</p>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">6</span>
+  </div>
+
+  <!-- ===== P7: UI/UXデザイン ===== -->
+  <div class="page">
+    <h1>UI/UXデザイン</h1>
+
+    <h2>デザインコンセプト</h2>
+    <div class="card card-accent">
+      <p style="font-size:14px; font-weight:700;">「熱狂」「エネルギッシュ」「没入感」「ポップ」<br>少年マンガの熱さを視覚表現しつつ、マンガ作品が最も引き立つUI設計。</p>
+    </div>
+
+    <h2>カラーパレット</h2>
+    <div style="display:flex; gap:12px; margin:12px 0;">
+      <div style="text-align:center;">
+        <div style="width:60px;height:60px;background:#F20505;border-radius:8px;"></div>
+        <p style="font-size:10px;margin-top:4px;"><strong>Brand Red</strong><br>#F20505</p>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:60px;height:60px;background:#D93232;border-radius:8px;"></div>
+        <p style="font-size:10px;margin-top:4px;"><strong>Dark Red</strong><br>#D93232</p>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:60px;height:60px;background:#F2CB05;border-radius:8px;"></div>
+        <p style="font-size:10px;margin-top:4px;"><strong>Impact Yellow</strong><br>#F2CB05</p>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:60px;height:60px;background:#0D0D0D;border-radius:8px;"></div>
+        <p style="font-size:10px;margin-top:4px;"><strong>Deep Black</strong><br>#0D0D0D</p>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:60px;height:60px;background:#FFFEFE;border:1px solid #ddd;border-radius:8px;"></div>
+        <p style="font-size:10px;margin-top:4px;"><strong>Clean White</strong><br>#FFFEFE</p>
+      </div>
+    </div>
+
+    <h2>画面構成（6画面）</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>画面名</th>
+        <th>概要</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>読書画面</td>
+        <td>コマ一覧表示。コメント数バッジ。長押しでコメント欄へ。</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>コメント一覧</td>
+        <td>ボトムシート。いいジャン順/新着順。ネタバレぼかし表示。</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>コメント投稿</td>
+        <td>テキスト・画像/動画添付・タグ選択・ネタバレフラグ。</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>コマ選択</td>
+        <td>近くのコマ/別巻からコマを複数選択。</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>マイプロフィール</td>
+        <td>投稿履歴・いいジャン履歴・リスト。</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>他人のプロフィール</td>
+        <td>投稿一覧・フォロー・公開リスト。</td>
+      </tr>
+    </table>
+
+    <h2>インタラクション設計</h2>
+    <ul>
+      <li><strong>長押し → ボトムシート</strong>: 読書フローを妨げない自然なアクセス</li>
+      <li><strong>スワイプダウン</strong>: コメントシートを閉じる</li>
+      <li><strong>タップ切り替え</strong>: タブ・タグ・いいねの即座フィードバック</li>
+      <li><strong>アニメーション</strong>: パルスボーダー（コメント可能なコマの強調）</li>
+    </ul>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">7</span>
+  </div>
+
+  <!-- ===== P8: プロトタイプ① ===== -->
+  <div class="page">
+    <h1>プロトタイプ画面 (1/2)</h1>
+
+    <div class="card card-accent">
+      <p><strong>インタラクティブプロトタイプを実装済み。</strong>実際にタップ操作で全画面を遷移できるHTML/JS製のSPAプロトタイプです。</p>
+      <p style="font-size:12px;">URL: <strong>https://gapul.github.io/mangatech/prototype.html</strong></p>
+    </div>
+
+    <h2>画面1: 読書画面</h2>
+    <div class="card">
+      <ul>
+        <li>マンガのコマがリスト表示される</li>
+        <li>各コマに<strong>コメント数バッジ</strong>（「💬 32件」）が付与</li>
+        <li>フォーカス中のコマには<strong>パルスアニメーション</strong>と「長押しでコメント」のヒントを表示</li>
+        <li>右上のユーザーアイコンからプロフィール画面へ遷移</li>
+      </ul>
+    </div>
+
+    <h2>画面2: コメント一覧シート</h2>
+    <div class="card">
+      <ul>
+        <li>半透明オーバーレイの上にボトムシートとして表示</li>
+        <li><strong>いいジャン順 / 新着順</strong>タブをタップで切り替え（モックAPIから動的描画）</li>
+        <li>各コメント: アバター / 名前 / 本文 / タグバッジ / 日時 / いいね数</li>
+        <li><strong>ネタバレコメント</strong>はぼかし表示（タップで解除）</li>
+        <li>いいねボタンはトグル式で即座にカウント更新</li>
+        <li>アバタークリックで他人のプロフィールへ遷移</li>
+      </ul>
+    </div>
+
+    <h2>画面3: コメント投稿画面</h2>
+    <div class="card">
+      <ul>
+        <li>選択中のコマのサムネイルを上部に表示</li>
+        <li>テキスト入力エリア + 画像/動画アップロードエリア</li>
+        <li><strong>タグチップ</strong>: 考察・二次創作・小ネタ・ネタバレあり（タップで切り替え）</li>
+        <li>「+」ボタンからコマ選択画面へ遷移して関連コマを追加</li>
+      </ul>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">8</span>
+  </div>
+
+  <!-- ===== P9: プロトタイプ② ===== -->
+  <div class="page">
+    <h1>プロトタイプ画面 (2/2)</h1>
+
+    <h2>画面4: 複数コマ選択</h2>
+    <div class="card">
+      <ul>
+        <li>「近くのコマ / 別の巻から」タブでスコープ切り替え</li>
+        <li>2カラムグリッドでコマをタップ選択（チェックマーク表示）</li>
+        <li>選択数をリアルタイムカウント</li>
+        <li>「決定」ボタンで投稿画面に戻る</li>
+      </ul>
+    </div>
+
+    <h2>画面5: マイプロフィール</h2>
+    <div class="card">
+      <ul>
+        <li>ユーザー名・投稿数・獲得いいね数・リスト数を表示</li>
+        <li><strong>投稿履歴 / いいジャン</strong>タブ切り替え（モックAPIで動的切り替え）</li>
+        <li>各フィード項目: コマサムネイル + コメント本文 + 作品名</li>
+      </ul>
+    </div>
+
+    <h2>画面6: 他人のプロフィール</h2>
+    <div class="card">
+      <ul>
+        <li>赤背景のヒーローバナーで差別化</li>
+        <li>フォロワー数・リスト数を表示</li>
+        <li>投稿一覧を閲覧可能</li>
+        <li><strong>フォローボタン</strong>: タップで「フォロー中」に切り替わるインタラクション</li>
+      </ul>
+    </div>
+
+    <h2>技術実装</h2>
+    <div class="card card-yellow">
+      <ul>
+        <li><strong>フレームワーク不要</strong>: HTML5 + CSS3 + Vanilla JS のみで実装</li>
+        <li><strong>SPA構成</strong>: 画面遷移はJSの <code>navigateTo()</code> による切り替え</li>
+        <li><strong>モックAPI統合</strong>: <code>mock-data.js</code> から全データを取得し動的描画</li>
+        <li><strong>静的ホスティング対応</strong>: GitHub Pages で即座にデプロイ可能</li>
+      </ul>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">9</span>
+  </div>
+
+  <!-- ===== P10: 技術アーキテクチャ ===== -->
+  <div class="page">
+    <h1>技術アーキテクチャ</h1>
+
+    <h2>MVP（現在）: 静的構成</h2>
+    <div class="card">
+      <div class="flow">
+        <div class="flow-step">prototype.html<br>(SPA)</div>
+        <div class="flow-arrow">←</div>
+        <div class="flow-step">mock-data.js<br>(モックAPI)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">GitHub Pages<br>(静的ホスティング)</div>
+      </div>
+      <p style="font-size:12px;">バックエンドは公開せず、モックJSONでフロントエンドが完結。将来的にBaaSへ切り替えやすいレスポンス形式を採用。</p>
+    </div>
+
+    <h2>本番構成（想定）</h2>
+    <div class="card">
+      <div class="flow">
+        <div class="flow-step">React<br>フロント</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">API Gateway<br>+ CDN</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">BaaS<br>(Supabase)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">PostgreSQL<br>+ Storage</div>
+      </div>
+    </div>
+
+    <h2>コマ認識技術</h2>
+    <div class="card card-accent">
+      <p>マンガのページからコマを自動認識してタグ付けする技術が必要です。</p>
+      <ul>
+        <li><strong>AI画像認識</strong>: コマの境界線を機械学習モデルで検出</li>
+        <li><strong>エッジ検出</strong>: 枠線ベースの画像処理で補完</li>
+        <li><strong>手動修正UI</strong>: 誤認識を簡単に修正できるエディター</li>
+      </ul>
+      <p style="font-size:12px;">ジャンプ+は既にデジタルデータとしてマンガを保持しているため、コマ割り情報をメタデータとして管理するアプローチも可能です。</p>
+    </div>
+
+    <h2>API設計</h2>
+    <table>
+      <tr>
+        <th>エンドポイント</th>
+        <th>メソッド</th>
+        <th>説明</th>
+      </tr>
+      <tr>
+        <td>/panels/:id/comments</td>
+        <td>GET</td>
+        <td>コマIDでコメント取得</td>
+      </tr>
+      <tr>
+        <td>/panels/:id/comments</td>
+        <td>POST</td>
+        <td>コメント投稿</td>
+      </tr>
+      <tr>
+        <td>/comments/:id/likes</td>
+        <td>POST/DELETE</td>
+        <td>いいねトグル</td>
+      </tr>
+      <tr>
+        <td>/comments/:id/replies</td>
+        <td>GET</td>
+        <td>返信一覧取得</td>
+      </tr>
+      <tr>
+        <td>/panels/:id/related</td>
+        <td>GET</td>
+        <td>関連コマ取得</td>
+      </tr>
+      <tr>
+        <td>/users/:id/profile</td>
+        <td>GET</td>
+        <td>プロフィール取得</td>
+      </tr>
+      <tr>
+        <td>/users/:id/comments</td>
+        <td>GET</td>
+        <td>投稿履歴取得</td>
+      </tr>
+      <tr>
+        <td>/comments/popular</td>
+        <td>GET</td>
+        <td>人気コメント取得</td>
+      </tr>
+    </table>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">10</span>
+  </div>
+
+  <!-- ===== P11: データモデル ===== -->
+  <div class="page">
+    <h1>データモデル</h1>
+
+    <p>12のデータモデルで全機能をカバーする設計です。</p>
+
+    <div class="grid-3">
+      <div class="model-box">Users</div>
+      <div class="model-box">Profiles</div>
+      <div class="model-box">Works</div>
+      <div class="model-box">Episodes</div>
+      <div class="model-box">Panels</div>
+      <div class="model-box">Comments</div>
+      <div class="model-box">Attachments</div>
+      <div class="model-box">Likes</div>
+      <div class="model-box">Tags</div>
+      <div class="model-box" style="background:var(--red);">PanelLinks</div>
+      <div class="model-box">Lists</div>
+      <div class="model-box">ListItems</div>
+    </div>
+
+    <h2>ER図（主要関係）</h2>
+    <div class="card" style="font-family:monospace; font-size:11px; line-height:1.9;">
+      <pre style="white-space:pre-wrap;">
+Users ──1:1──▶ Profiles
+Works ──1:N──▶ Episodes ──1:N──▶ Panels
+Users ──1:N──▶ Comments
+Comments ◀──N:M──▶ Panels  (via PanelLinks)
+Comments ──1:N──▶ Attachments
+Comments ──1:N──▶ Replies (self-ref: parent_id)
+Users ──1:N──▶ Likes ──N:1──▶ Comments
+Users ──1:N──▶ Lists ──1:N──▶ ListItems ──N:1──▶ Comments
+Comments ──N:M──▶ Tags</pre>
+    </div>
+
+    <h2>コメントモデル（中核）</h2>
+    <table>
+      <tr>
+        <th>フィールド</th>
+        <th>型</th>
+        <th>説明</th>
+      </tr>
+      <tr>
+        <td>id</td>
+        <td>string</td>
+        <td>コメントID（UUID）</td>
+      </tr>
+      <tr>
+        <td>user_id</td>
+        <td>string</td>
+        <td>投稿者のユーザーID</td>
+      </tr>
+      <tr>
+        <td>text</td>
+        <td>string</td>
+        <td>コメント本文（最大1000文字）</td>
+      </tr>
+      <tr>
+        <td>spoiler</td>
+        <td>boolean</td>
+        <td><strong>ネタバレフラグ（必須）</strong></td>
+      </tr>
+      <tr>
+        <td>tags</td>
+        <td>string[]</td>
+        <td>タグ名の配列</td>
+      </tr>
+      <tr>
+        <td>panel_ids</td>
+        <td>string[]</td>
+        <td>紐づくコマID（1つ以上必須）</td>
+      </tr>
+      <tr>
+        <td>like_count</td>
+        <td>number</td>
+        <td>いいね数</td>
+      </tr>
+      <tr>
+        <td>reply_count</td>
+        <td>number</td>
+        <td>返信数</td>
+      </tr>
+      <tr>
+        <td>parent_id</td>
+        <td>string|null</td>
+        <td>返信先コメントID</td>
+      </tr>
+      <tr>
+        <td>created_at</td>
+        <td>string</td>
+        <td>ISO 8601</td>
+      </tr>
+    </table>
+
+    <h2>モックデータ規模</h2>
+    <div class="grid-3">
+      <div class="card" style="text-align:center;"><strong>8</strong><br><span style="font-size:11px;">ユーザー</span></div>
+      <div class="card" style="text-align:center;"><strong>24</strong><br><span style="font-size:11px;">コメント</span>
+      </div>
+      <div class="card" style="text-align:center;"><strong>4</strong><br><span style="font-size:11px;">コマ</span></div>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">11</span>
+  </div>
+
+  <!-- ===== P12: 競合分析 ===== -->
+  <div class="page">
+    <h1>競合分析</h1>
+
+    <h2>競合マッピング</h2>
+    <table>
+      <tr>
+        <th>サービス</th>
+        <th>特徴</th>
+        <th>KOMA LINKとの違い</th>
+      </tr>
+      <tr>
+        <td><strong>アル（alu.jp）</strong></td>
+        <td>コマを切り抜いてSNSにシェア。出版社の使用許諾あり。</td>
+        <td>外部SNS転送型。プラットフォーム内完結しない。</td>
+      </tr>
+      <tr>
+        <td><strong>comici 付箋コメント</strong></td>
+        <td>マンガの任意の位置に付箋コメントを残せる</td>
+        <td>コマ単位ではなく座標単位。体系的な考察に不向き。</td>
+      </tr>
+      <tr>
+        <td><strong>一般的なマンガアプリのコメント欄</strong></td>
+        <td>話単位のテキストコメント。リアクション少数。</td>
+        <td>粒度が粗い。画像/動画不可。返信不可の場合が多い。</td>
+      </tr>
+      <tr>
+        <td><strong>X（Twitter）</strong></td>
+        <td>汎用SNS。マンガ感想の投稿は多い。</td>
+        <td>ネタバレ制御なし。作品データとの紐付けなし。</td>
+      </tr>
+    </table>
+
+    <h2>KOMA LINKの差別化ポイント</h2>
+    <div class="grid-2">
+      <div class="card card-accent">
+        <h3>1. コマ単位の粒度</h3>
+        <p style="font-size:12px;">話単位ではなくコマ単位。特定の表情、構図、セリフに対して精密に言及できる。</p>
+      </div>
+      <div class="card card-accent">
+        <h3>2. プラットフォーム内完結</h3>
+        <p style="font-size:12px;">外部SNSに転送する必要なく、読書→コメント→交流がシームレスに完結。</p>
+      </div>
+      <div class="card card-accent">
+        <h3>3. 読進度連動ネタバレ制御</h3>
+        <p style="font-size:12px;">他サービスにない、コマ単位の既読管理に基づく自動フィルタリング。</p>
+      </div>
+      <div class="card card-accent">
+        <h3>4. マルチメディアコメント</h3>
+        <p style="font-size:12px;">テキスト+画像+動画で、二次創作を含む豊かな表現が可能。</p>
+      </div>
+    </div>
+
+    <h2>ポジショニング</h2>
+    <div class="card card-yellow">
+      <p style="font-size:13px; text-align:center;"><strong>KOMA
+          LINKは「マンガ読書体験に統合されたSNS」という、既存サービスにないポジション</strong>を確立します。<br>閲覧ビューワー内にネイティブに組み込まれることで、読書→交流のフリクションをゼロにします。</p>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">12</span>
+  </div>
+
+  <!-- ===== P13: ビジネスモデル ===== -->
+  <div class="page">
+    <h1>ビジネスモデル・収益化</h1>
+
+    <h2>KOMA LINKがジャンプ+にもたらす価値</h2>
+    <div class="grid-2">
+      <div class="card" style="border-top:4px solid var(--red);">
+        <h3>滞在時間の延長</h3>
+        <p style="font-size:12px;">コメント閲覧・投稿・交流により、読書後の滞在時間が増加。広告インプレッション増に直結。</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--yellow);">
+        <h3>リテンション向上</h3>
+        <p style="font-size:12px;">コミュニティの存在がプラットフォームへの愛着を生み、競合アプリへの流出を防止。</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--black);">
+        <h3>新規ユーザー獲得</h3>
+        <p style="font-size:12px;">人気考察・ファンアートがバイラルし、コミュニティ目的での新規流入を創出。</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--dark-red);">
+        <h3>作品データの可視化</h3>
+        <p style="font-size:12px;">どのコマが話題か、どの場面が人気かのデータを編集部にフィードバック。</p>
+      </div>
+    </div>
+
+    <h2>収益化モデル（段階的導入）</h2>
+    <table>
+      <tr>
+        <th>フェーズ</th>
+        <th>収益源</th>
+        <th>説明</th>
+      </tr>
+      <tr>
+        <td>Phase 1</td>
+        <td>広告収益増</td>
+        <td>滞在時間延長による既存広告のインプレッション増加</td>
+      </tr>
+      <tr>
+        <td>Phase 2</td>
+        <td>プレミアム機能</td>
+        <td>高度なリスト機能・プロフィールカスタマイズ（月額課金）</td>
+      </tr>
+      <tr>
+        <td>Phase 3</td>
+        <td>クリエイターエコノミー</td>
+        <td>投げ銭・スーパーコメント（収益の一部を作者に還元）</td>
+      </tr>
+      <tr>
+        <td>Phase 4</td>
+        <td>データ活用</td>
+        <td>コマ単位の人気データを編集・マーケティングに活用</td>
+      </tr>
+    </table>
+
+    <h2>KPI（重要指標）</h2>
+    <div class="grid-3">
+      <div class="card" style="text-align:center;">
+        <h3 style="color:var(--red);">DAU</h3>
+        <p style="font-size:11px;">コメント機能の日間アクティブユーザー数</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <h3 style="color:var(--red);">滞在時間</h3>
+        <p style="font-size:11px;">読書後の平均滞在時間（分）</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <h3 style="color:var(--red);">投稿率</h3>
+        <p style="font-size:11px;">閲覧者のうちコメント投稿する割合</p>
+      </div>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">13</span>
+  </div>
+
+  <!-- ===== P14: スケーラビリティ ===== -->
+  <div class="page">
+    <h1>スケーラビリティ・拡張性</h1>
+
+    <h2>段階的な機能拡張</h2>
+    <div class="card">
+      <table>
+        <tr>
+          <th>段階</th>
+          <th>機能</th>
+          <th>効果</th>
+        </tr>
+        <tr>
+          <td>MVP</td>
+          <td>コマコメント・いいね・タグ・ネタバレ制御</td>
+          <td>基本体験の確立</td>
+        </tr>
+        <tr>
+          <td>v1.1</td>
+          <td>リスト公開・フォロー・通知</td>
+          <td>コミュニティ形成</td>
+        </tr>
+        <tr>
+          <td>v1.2</td>
+          <td>人気コメントランキング・トレンド</td>
+          <td>コンテンツ発見の促進</td>
+        </tr>
+        <tr>
+          <td>v2.0</td>
+          <td>リアルタイムコメント・スレッド</td>
+          <td>リアルタイム交流</td>
+        </tr>
+        <tr>
+          <td>v3.0</td>
+          <td>AIコマ認識自動化・推薦</td>
+          <td>運用効率化</td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>海外展開</h2>
+    <div class="card card-accent">
+      <p>ジャンプ+は海外版（MANGA Plus）を展開しており、KOMA LINKは国際展開に大きなポテンシャルを持ちます。</p>
+      <ul>
+        <li><strong>多言語対応</strong>: UIの多言語化。コメントの自動翻訳機能。</li>
+        <li><strong>文化横断コミュニティ</strong>: 同じコマについて、国境を越えた考察・交流が生まれる。</li>
+        <li><strong>ローカライズ</strong>: 地域別の人気コメント・トレンド表示。</li>
+      </ul>
+    </div>
+
+    <h2>対クリエイター価値</h2>
+    <div class="card card-yellow">
+      <h3>作者ダッシュボード（将来構想）</h3>
+      <ul>
+        <li><strong>コマ別エンゲージメント</strong>: どのコマが最も話題か可視化</li>
+        <li><strong>読者の反応分析</strong>: 考察・二次創作・小ネタの比率</li>
+        <li><strong>ファンコミュニティ</strong>: 作者公式アカウントでのコメント返信</li>
+      </ul>
+      <p style="font-size:12px;">コマ単位のデータは、連載の方向性検討や単行本の表紙選定など、編集業務にも活用可能です。</p>
+    </div>
+
+    <h2>技術的スケーラビリティ</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>水平スケーリング</h3>
+        <p style="font-size:12px;">BaaS (Supabase/Firebase) + CDN で、ユーザー増に応じた自動スケーリング。</p>
+      </div>
+      <div class="card">
+        <h3>エッジキャッシュ</h3>
+        <p style="font-size:12px;">人気コメント・ランキングはCDNキャッシュで高速配信。</p>
+      </div>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">14</span>
+  </div>
+
+  <!-- ===== P15: ロードマップ ===== -->
+  <div class="page">
+    <h1>開発ロードマップ</h1>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">Phase 0: 企画・プロトタイプ（2026年3月 - 完了）</div>
+        <ul style="font-size:12px; margin-top:4px;">
+          <li>ペルソナ・ペイン定義</li>
+          <li>UI/UXデザイン策定</li>
+          <li>インタラクティブHTMLプロトタイプ完成</li>
+          <li>API仕様書・モックデータ完成</li>
+          <li>データモデル設計完了（12モデル）</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Phase 1: MVP開発（2026年4月 - 6月）</div>
+        <ul style="font-size:12px; margin-top:4px;">
+          <li>React + TypeScript フロントエンド実装</li>
+          <li>Supabase バックエンド構築</li>
+          <li>認証（ジャンプ+アカウント連携）</li>
+          <li>コマコメント・いいね・タグ機能</li>
+          <li>ネタバレ制御システム</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Phase 2: ベータテスト（2026年7月 - 9月）</div>
+        <ul style="font-size:12px; margin-top:4px;">
+          <li>限定作品でのクローズドベータ</li>
+          <li>ユーザーフィードバック収集・改善</li>
+          <li>パフォーマンスチューニング</li>
+          <li>プロフィール・フォロー・リスト機能追加</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Phase 3: 正式リリース（2026年10月 - 12月）</div>
+        <ul style="font-size:12px; margin-top:4px;">
+          <li>ジャンプ+全作品への展開</li>
+          <li>人気コメント・トレンド機能</li>
+          <li>モデレーション体制の確立</li>
+          <li>KPI計測・分析基盤</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Phase 4: 拡張・海外展開（2027年〜）</div>
+        <ul style="font-size:12px; margin-top:4px;">
+          <li>MANGA Plus（海外版）への展開</li>
+          <li>多言語対応・自動翻訳</li>
+          <li>AIコマ認識の自動化</li>
+          <li>クリエイターエコノミー機能</li>
+        </ul>
+      </div>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">15</span>
+  </div>
+
+  <!-- ===== P16: リスクと対策 ===== -->
+  <div class="page">
+    <h1>リスクと対策</h1>
+
+    <table>
+      <tr>
+        <th style="width:25%;">リスク</th>
+        <th style="width:25%;">影響度</th>
+        <th style="width:50%;">対策</th>
+      </tr>
+      <tr>
+        <td><strong>コメントの荒らし・誹謗中傷</strong></td>
+        <td><span class="tag">高</span></td>
+        <td>AI+人力のモデレーション体制。通報機能。投稿前の確認UI。ブロック機能。</td>
+      </tr>
+      <tr>
+        <td><strong>ネタバレ制御の精度</strong></td>
+        <td><span class="tag">中</span></td>
+        <td>投稿時のspoilerフラグ必須化で投稿者責任を明確化。AIによる自動検出を補助的に導入。</td>
+      </tr>
+      <tr>
+        <td><strong>著作権問題（二次創作）</strong></td>
+        <td><span class="tag">中</span></td>
+        <td>集英社公式プラットフォーム内のため、ガイドライン設定で対応可能。不適切な投稿は通報→削除フロー。</td>
+      </tr>
+      <tr>
+        <td><strong>サーバー負荷（新話公開時のスパイク）</strong></td>
+        <td><span class="tag">中</span></td>
+        <td>CDNキャッシュ＋オートスケーリング。人気コメントのプリフェッチ。非同期書き込み。</td>
+      </tr>
+      <tr>
+        <td><strong>ユーザー定着率</strong></td>
+        <td><span class="tag">中</span></td>
+        <td>初期は人気作品に限定して集中投入。プッシュ通知（返信・いいね通知）でリテンション向上。</td>
+      </tr>
+      <tr>
+        <td><strong>コマ認識の精度</strong></td>
+        <td><span class="tag">低</span></td>
+        <td>デジタル原稿のメタデータ活用。手動修正UIでフォールバック。段階的にAI精度を向上。</td>
+      </tr>
+    </table>
+
+    <h2>モデレーション方針</h2>
+    <div class="card card-accent">
+      <div class="grid-2">
+        <div>
+          <h3>自動フィルタリング</h3>
+          <ul style="font-size:12px;">
+            <li>NGワード自動検出</li>
+            <li>画像のNSFW判定</li>
+            <li>スパム検出</li>
+          </ul>
+        </div>
+        <div>
+          <h3>コミュニティ運用</h3>
+          <ul style="font-size:12px;">
+            <li>通報ボタン（全コメント）</li>
+            <li>ユーザーブロック機能</li>
+            <li>モデレーターチーム配置</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h2>法的考慮事項</h2>
+    <div class="card">
+      <ul>
+        <li><strong>利用規約</strong>: コメント・二次創作の投稿ガイドラインを明確に定義</li>
+        <li><strong>著作権</strong>: ジャンプ+公式機能として、二次創作の範囲と条件を設定</li>
+        <li><strong>プライバシー</strong>: ユーザーデータの適切な管理（GDPR/個人情報保護法準拠）</li>
+      </ul>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">16</span>
+  </div>
+
+  <!-- ===== P17: 技術スタック ===== -->
+  <div class="page">
+    <h1>技術スタック</h1>
+
+    <h2>フロントエンド</h2>
+    <table>
+      <tr>
+        <th>技術</th>
+        <th>用途</th>
+      </tr>
+      <tr>
+        <td><strong>React + TypeScript</strong></td>
+        <td>UIコンポーネント構築</td>
+      </tr>
+      <tr>
+        <td><strong>Next.js</strong></td>
+        <td>SSR/SSG、ルーティング</td>
+      </tr>
+      <tr>
+        <td><strong>Tailwind CSS</strong></td>
+        <td>スタイリング（design.md準拠のカスタムテーマ）</td>
+      </tr>
+      <tr>
+        <td><strong>Framer Motion</strong></td>
+        <td>画面遷移・インタラクションアニメーション</td>
+      </tr>
+    </table>
+
+    <h2>バックエンド</h2>
+    <table>
+      <tr>
+        <th>技術</th>
+        <th>用途</th>
+      </tr>
+      <tr>
+        <td><strong>Supabase</strong></td>
+        <td>認証・DB・ストレージ・リアルタイム</td>
+      </tr>
+      <tr>
+        <td><strong>PostgreSQL</strong></td>
+        <td>リレーショナルDB（12モデル）</td>
+      </tr>
+      <tr>
+        <td><strong>Supabase Storage</strong></td>
+        <td>画像・動画ファイル管理</td>
+      </tr>
+      <tr>
+        <td><strong>Edge Functions</strong></td>
+        <td>カスタムロジック（ネタバレ制御等）</td>
+      </tr>
+    </table>
+
+    <h2>インフラ</h2>
+    <table>
+      <tr>
+        <th>技術</th>
+        <th>用途</th>
+      </tr>
+      <tr>
+        <td><strong>Vercel</strong></td>
+        <td>フロントエンドデプロイ</td>
+      </tr>
+      <tr>
+        <td><strong>Cloudflare CDN</strong></td>
+        <td>静的アセット配信</td>
+      </tr>
+      <tr>
+        <td><strong>GitHub Actions</strong></td>
+        <td>CI/CD パイプライン</td>
+      </tr>
+    </table>
+
+    <h2>AI/ML（将来）</h2>
+    <table>
+      <tr>
+        <th>技術</th>
+        <th>用途</th>
+      </tr>
+      <tr>
+        <td><strong>画像認識モデル</strong></td>
+        <td>コマ境界の自動検出</td>
+      </tr>
+      <tr>
+        <td><strong>NLPモデル</strong></td>
+        <td>ネタバレ自動検出・コメント分類</td>
+      </tr>
+      <tr>
+        <td><strong>レコメンデーション</strong></td>
+        <td>関連コメント・コマの推薦</td>
+      </tr>
+    </table>
+
+    <h2>開発ツール</h2>
+    <div class="grid-3">
+      <div class="card" style="text-align:center; font-size:12px;">
+        <strong>Git / GitHub</strong><br>バージョン管理
+      </div>
+      <div class="card" style="text-align:center; font-size:12px;">
+        <strong>Figma</strong><br>UIデザイン
+      </div>
+      <div class="card" style="text-align:center; font-size:12px;">
+        <strong>Notion</strong><br>プロジェクト管理
+      </div>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">17</span>
+  </div>
+
+  <!-- ===== P18: 開発体制・メンバー略歴 ===== -->
+  <div class="page">
+    <h1>開発体制</h1>
+
+    <h2>体制図</h2>
+    <div class="card">
+      <div class="placeholder" style="min-height:120px;">
+        <!-- ここに開発体制図を記入 -->
+        [開発体制図をここに挿入]<br><br>
+        例:<br>
+        プロジェクトリーダー → フロントエンド担当 / バックエンド担当 / デザイン担当<br>
+        外部連携: 必要に応じてML/AIエンジニア
+      </div>
+    </div>
+
+    <h2>メンバー略歴</h2>
+    <div class="card">
+      <div class="placeholder">
+        <!-- ここにメンバー略歴を記入 -->
+        [メンバー略歴をここに記入]<br><br>
+        記載項目（コンテスト要件）:<br>
+        ・氏名<br>
+        ・役割<br>
+        ・アプリ・Webサービスに関する過去の経験・実績
+      </div>
+    </div>
+
+    <h2>外部連携の有無</h2>
+    <div class="card">
+      <div class="placeholder">
+        [外部連携の必要性について記入]<br><br>
+        例: AI/ML技術のコマ認識部分は外部パートナーとの連携を検討
+      </div>
+    </div>
+
+    <h2>開発体制の堅実性</h2>
+    <div class="card card-yellow">
+      <ul>
+        <li><strong>プロトタイプ実装済み</strong>: インタラクティブなHTML/JSプロトタイプを既に完成</li>
+        <li><strong>API設計完了</strong>: 8エンドポイント・12データモデルの仕様策定済み</li>
+        <li><strong>技術選定済み</strong>: React + Supabase のモダンスタックで迅速な開発が可能</li>
+        <li><strong>段階的リリース</strong>: MVP→ベータ→正式版の3段階で着実に開発</li>
+      </ul>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">18</span>
+  </div>
+
+  <!-- ===== P19: 実現可能性 ===== -->
+  <div class="page">
+    <h1>実現可能性</h1>
+
+    <h2>既に実現していること</h2>
+    <div class="card card-accent">
+      <div class="grid-2">
+        <div>
+          <h3>プロトタイプ</h3>
+          <ul style="font-size:12px;">
+            <li>6画面のインタラクティブSPA</li>
+            <li>画面遷移・タブ切り替え動作</li>
+            <li>モックAPIからの動的データ描画</li>
+            <li>いいねトグル・ネタバレぼかし</li>
+          </ul>
+        </div>
+        <div>
+          <h3>バックエンド設計</h3>
+          <ul style="font-size:12px;">
+            <li>12データモデルの完全定義</li>
+            <li>8 APIエンドポイントの仕様書</li>
+            <li>24件のモックコメントデータ</li>
+            <li>ネタバレ制御アルゴリズム</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h2>ジャンプ+との親和性</h2>
+    <div class="card">
+      <ul>
+        <li><strong>既存UIへの自然な統合</strong>: 長押しというジェスチャーで既存の読書体験を壊さず機能を追加</li>
+        <li><strong>デジタルデータの活用</strong>: マンガのデジタル原稿からコマ情報を取得可能</li>
+        <li><strong>アカウント基盤の活用</strong>: 既存のジャンプ+アカウントでそのまま利用開始</li>
+        <li><strong>段階的導入</strong>: 一部作品から試験導入し、効果を確認しながら拡大</li>
+      </ul>
+    </div>
+
+    <h2>なぜ今やるべきか</h2>
+    <div class="card card-yellow">
+      <div class="grid-2">
+        <div>
+          <h3>市場タイミング</h3>
+          <p style="font-size:12px;">マンガアプリ間の競争激化。読者体験の差別化が生存戦略に直結。</p>
+        </div>
+        <div>
+          <h3>技術的成熟</h3>
+          <p style="font-size:12px;">BaaS・CDN・AI画像認識の成熟により、少人数でも高品質なプロダクトが開発可能。</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>成功指標（6ヶ月後の目標）</h2>
+    <div class="grid-3">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:24px; font-weight:900; color:var(--red);">10万+</div>
+        <p style="font-size:11px;">コメント投稿数</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:24px; font-weight:900; color:var(--red);">+30%</div>
+        <p style="font-size:11px;">平均滞在時間増加</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:24px; font-weight:900; color:var(--red);">5%</div>
+        <p style="font-size:11px;">読者のコメント投稿率</p>
+      </div>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">19</span>
+  </div>
+
+  <!-- ===== P20: まとめ ===== -->
+  <div class="page" style="display:flex; flex-direction:column; justify-content:space-between;">
+    <div>
+      <h1>まとめ</h1>
+
+      <div class="card card-accent" style="margin:24px 0;">
+        <p style="font-size:16px; font-weight:800; text-align:center; line-height:2;">
+          KOMA LINK は、ジャンプ+を<br>
+          <span class="highlight">「読む場所」から「語り合う場所」</span>へ進化させます。
+        </p>
+      </div>
+
+      <div class="grid-2" style="margin:24px 0;">
+        <div class="card">
+          <h3 style="color:var(--red);">斬新さ</h3>
+          <p style="font-size:12px;">コマ単位のコメントシステムは、マンガアプリにおける世界初のアプローチ。読者の交流粒度を劇的に変える。</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--red);">実現性</h3>
+          <p style="font-size:12px;">プロトタイプ実装済み。API・データモデル設計完了。モダン技術スタックで3ヶ月でMVP開発可能。</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--red);">スケール可能性</h3>
+          <p style="font-size:12px;">MANGA Plus経由で海外展開。クリエイターエコノミーでの収益拡大。作品データの編集活用。</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--red);">ジャンプ+への貢献</h3>
+          <p style="font-size:12px;">滞在時間延長・リテンション向上・新規獲得。閲覧プラットフォームからコミュニティプラットフォームへの進化。</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; padding:30px 0;">
+      <div
+        style="font-size:48px; font-weight:900; font-style:italic; color:var(--black); text-shadow:3px 3px 0 var(--red); margin-bottom:12px;">
+        KOMA LINK</div>
+      <p style="color:var(--red); font-weight:800; font-size:16px;">コマ単位で感想・考察・二次創作を共有するJump+公式SNS</p>
+      <div style="margin-top:24px;">
+        <p style="font-size:12px; color:#999;">プロトタイプURL: https://gapul.github.io/mangatech/prototype.html</p>
+        <p style="font-size:12px; color:#999;">お問い合わせ: <!-- メールアドレスを記入 -->[連絡先]</p>
+      </div>
+    </div>
+    <span class="page-footer">KOMA LINK - MangaTech 2026</span>
+    <span class="page-number">20</span>
+  </div>
+
+</body>
+
+</html>
