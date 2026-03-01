@@ -839,20 +839,21 @@
 
     <h2>5. ユーザープロフィール</h2>
     <div class="card">
+      <div class="sticker" style="top:-15px; left:-15px; font-size:12px; transform:rotate(-5deg);">アピール!</div>
       <p>各ユーザーのプロフィールページでは以下が確認できます。</p>
       <div class="grid-2">
-        <div>
-          <h3>自分のプロフィール</h3>
-          <ul>
+        <div style="background:#f0f0f0; padding:12px; border:2px solid var(--deep-black);">
+          <h3 style="margin-top:0; border-bottom:1px solid #aaa;">自分のプロフィール</h3>
+          <ul style="margin-bottom:0;">
             <li>投稿したコメント一覧</li>
             <li>いいジャンしたコメント一覧</li>
             <li>作成したリスト</li>
             <li>投稿数・獲得いいね数・リスト数</li>
           </ul>
         </div>
-        <div>
-          <h3>他人のプロフィール</h3>
-          <ul>
+        <div style="background:#f0f0f0; padding:12px; border:2px solid var(--deep-black);">
+          <h3 style="margin-top:0; border-bottom:1px solid #aaa;">他人のプロフィール</h3>
+          <ul style="margin-bottom:0;">
             <li>投稿一覧の閲覧</li>
             <li>フォロワー数・いいジャン率</li>
             <li>フォロー機能</li>
@@ -863,7 +864,7 @@
     </div>
 
     <h2>6. リスト機能</h2>
-    <div class="card">
+    <div class="card card-yellow">
       <p>お気に入りのコメントを<strong>テーマ別のリスト</strong>にまとめて保存・公開できます。</p>
       <ul>
         <li>例: 「伏線まとめリスト」「名シーン集」「ファンアートまとめ」</li>
@@ -873,9 +874,10 @@
     </div>
 
     <h2>7. 人気コメント・トレンド</h2>
-    <div class="card">
-      <p>いいね数・返信数に基づいて<strong>話題のコメントをピックアップ</strong>。</p>
-      <ul>
+    <div class="card card-accent">
+      <div class="sticker" style="top:-15px; right:10px; font-size:12px; background:var(--deep-black);">バズる!!</div>
+      <p style="color:#fff;">いいね数・返信数に基づいて<strong>話題のコメントをピックアップ</strong>。</p>
+      <ul style="color:#eee;">
         <li>期間フィルタ（日間/週間/月間）</li>
         <li>タグ別フィルタ（考察/二次創作/小ネタ）</li>
         <li>話題のコメントから新しい作品や名場面に出会える</li>
@@ -892,34 +894,53 @@
 
   <!-- ===== P7: UI/UXデザイン ===== -->
   <div class="page">
+    <div class="bg-flash"></div>
     <h1>UI/UXデザイン</h1>
 
     <h2>デザインコンセプト</h2>
     <div class="card card-accent">
-      <p style="font-size:14px; font-weight:700;">「熱狂」「エネルギッシュ」「没入感」「ポップ」<br>少年マンガの熱さを視覚表現しつつ、マンガ作品が最も引き立つUI設計。</p>
+      <p style="font-size:16px; font-weight:900; line-height:1.8; text-align:center;">
+        「熱狂」「エネルギッシュ」「没入感」「ポップ」<br>
+        <span style="font-size:14px; font-weight:500;">少年マンガの熱さを視覚表現しつつ、マンガ作品が最も引き立つUI設計。</span>
+      </p>
     </div>
 
     <h2>カラーパレット</h2>
-    <div style="display:flex; gap:12px; margin:12px 0;">
+    <div class="grid-3" style="margin-top:24px;">
       <div style="text-align:center;">
-        <div style="width:60px;height:60px;background:#F20505;border-radius:8px;"></div>
-        <p style="font-size:10px;margin-top:4px;"><strong>Brand Red</strong><br>#F20505</p>
+        <div
+          style="width:100px;height:100px;background:#F20505;border:4px solid var(--deep-black);margin:0 auto;box-shadow:4px 4px 0 var(--deep-black);transform:skewX(-5deg);">
+        </div>
+        <p style="font-size:12px; font-weight:900; margin-top:12px; line-height:1.2;">Brand Red<br><span
+            style="font-weight:500;font-size:10px;">#F20505</span></p>
       </div>
       <div style="text-align:center;">
-        <div style="width:60px;height:60px;background:#D93232;border-radius:8px;"></div>
-        <p style="font-size:10px;margin-top:4px;"><strong>Dark Red</strong><br>#D93232</p>
+        <div
+          style="width:100px;height:100px;background:#D93232;border:4px solid var(--deep-black);margin:0 auto;box-shadow:4px 4px 0 var(--deep-black);transform:skewX(-5deg);">
+        </div>
+        <p style="font-size:12px; font-weight:900; margin-top:12px; line-height:1.2;">Dark Red<br><span
+            style="font-weight:500;font-size:10px;">#D93232</span></p>
       </div>
       <div style="text-align:center;">
-        <div style="width:60px;height:60px;background:#F2CB05;border-radius:8px;"></div>
-        <p style="font-size:10px;margin-top:4px;"><strong>Impact Yellow</strong><br>#F2CB05</p>
+        <div
+          style="width:100px;height:100px;background:#F2CB05;border:4px solid var(--deep-black);margin:0 auto;box-shadow:4px 4px 0 var(--deep-black);transform:skewX(-5deg);">
+        </div>
+        <p style="font-size:12px; font-weight:900; margin-top:12px; line-height:1.2;">Impact Yellow<br><span
+            style="font-weight:500;font-size:10px;">#F2CB05</span></p>
       </div>
       <div style="text-align:center;">
-        <div style="width:60px;height:60px;background:#0D0D0D;border-radius:8px;"></div>
-        <p style="font-size:10px;margin-top:4px;"><strong>Deep Black</strong><br>#0D0D0D</p>
+        <div
+          style="width:100px;height:100px;background:#0D0D0D;border:4px solid var(--deep-black);margin:0 auto;box-shadow:4px 4px 0 var(--brand-red);transform:skewX(-5deg);">
+        </div>
+        <p style="font-size:12px; font-weight:900; margin-top:12px; line-height:1.2;">Deep Black<br><span
+            style="font-weight:500;font-size:10px;">#0D0D0D</span></p>
       </div>
       <div style="text-align:center;">
-        <div style="width:60px;height:60px;background:#FFFEFE;border:1px solid #ddd;border-radius:8px;"></div>
-        <p style="font-size:10px;margin-top:4px;"><strong>Clean White</strong><br>#FFFEFE</p>
+        <div
+          style="width:100px;height:100px;background:#FFFEFE;border:4px solid var(--deep-black);margin:0 auto;box-shadow:4px 4px 0 var(--deep-black);transform:skewX(-5deg);">
+        </div>
+        <p style="font-size:12px; font-weight:900; margin-top:12px; line-height:1.2;">Clean White<br><span
+            style="font-weight:500;font-size:10px;">#FFFEFE</span></p>
       </div>
     </div>
 
@@ -963,27 +984,34 @@
     </table>
 
     <h2>インタラクション設計</h2>
-    <ul>
-      <li><strong>長押し → ボトムシート</strong>: 読書フローを妨げない自然なアクセス</li>
-      <li><strong>スワイプダウン</strong>: コメントシートを閉じる</li>
-      <li><strong>タップ切り替え</strong>: タブ・タグ・いいねの即座フィードバック</li>
-      <li><strong>アニメーション</strong>: パルスボーダー（コメント可能なコマの強調）</li>
-    </ul>
+    <div class="card card-yellow">
+      <ul style="margin-bottom:0;">
+        <li><strong>長押し → ボトムシート</strong>: 読書フローを妨げない自然なアクセス</li>
+        <li><strong>スワイプダウン</strong>: コメントシートを閉じる</li>
+        <li><strong>タップ切り替え</strong>: タブ・タグ・いいねの即座フィードバック</li>
+        <li><strong>アニメーション</strong>: パルスボーダー（コメント可能なコマの強調）</li>
+      </ul>
+    </div>
     <span class="page-footer">KOMA LINK - MangaTech 2026</span>
     <span class="page-number">7</span>
   </div>
 
   <!-- ===== P8: プロトタイプ① ===== -->
   <div class="page">
+    <div class="speedlines" style="opacity:0.6;"></div>
     <h1>プロトタイプ画面 (1/2)</h1>
 
-    <div class="card card-accent">
-      <p><strong>インタラクティブプロトタイプを実装済み。</strong>実際にタップ操作で全画面を遷移できるHTML/JS製のSPAプロトタイプです。</p>
-      <p style="font-size:12px;">URL: <strong>https://gapul.github.io/mangatech/prototype.html</strong></p>
+    <div class="card card-accent" style="text-align:center; padding:24px;">
+      <p style="font-size:16px; font-weight:900; margin-bottom:12px;">インタラクティブプロトタイプを実装済み。</p>
+      <p style="font-size:12px; margin-bottom:16px;">実際にタップ操作で全画面を遷移できるHTML/JS製のSPAプロトタイプです。</p>
+      <p
+        style="background:var(--deep-black); padding:8px; border:2px solid #fff; display:inline-block; transform:skewX(-5deg);">
+        URL: <strong>https://gapul.github.io/mangatech/prototype.html</strong></p>
     </div>
 
     <h2>画面1: 読書画面</h2>
     <div class="card">
+      <div class="sticker" style="top:-15px; left:-15px; font-size:14px; transform:rotate(-15deg);">画面1</div>
       <ul>
         <li>マンガのコマがリスト表示される</li>
         <li>各コマに<strong>コメント数バッジ</strong>（「💬 32件」）が付与</li>
@@ -994,6 +1022,8 @@
 
     <h2>画面2: コメント一覧シート</h2>
     <div class="card">
+      <div class="sticker"
+        style="top:-15px; left:-15px; font-size:14px; background:var(--deep-black); transform:rotate(-15deg);">画面2</div>
       <ul>
         <li>半透明オーバーレイの上にボトムシートとして表示</li>
         <li><strong>いいジャン順 / 新着順</strong>タブをタップで切り替え（モックAPIから動的描画）</li>
@@ -1006,6 +1036,9 @@
 
     <h2>画面3: コメント投稿画面</h2>
     <div class="card">
+      <div class="sticker"
+        style="top:-15px; left:-15px; font-size:14px; background:var(--impact-yellow); color:var(--deep-black); transform:rotate(-15deg);">
+        画面3</div>
       <ul>
         <li>選択中のコマのサムネイルを上部に表示</li>
         <li>テキスト入力エリア + 画像/動画アップロードエリア</li>
@@ -1019,10 +1052,12 @@
 
   <!-- ===== P9: プロトタイプ② ===== -->
   <div class="page">
+    <div class="speedlines" style="opacity:0.6; transform:scaleX(-1);"></div>
     <h1>プロトタイプ画面 (2/2)</h1>
 
     <h2>画面4: 複数コマ選択</h2>
     <div class="card">
+      <div class="sticker" style="top:-15px; left:-15px; font-size:14px; transform:rotate(-15deg);">画面4</div>
       <ul>
         <li>「近くのコマ / 別の巻から」タブでスコープ切り替え</li>
         <li>2カラムグリッドでコマをタップ選択（チェックマーク表示）</li>
@@ -1033,6 +1068,8 @@
 
     <h2>画面5: マイプロフィール</h2>
     <div class="card">
+      <div class="sticker"
+        style="top:-15px; left:-15px; font-size:14px; background:var(--deep-black); transform:rotate(-15deg);">画面5</div>
       <ul>
         <li>ユーザー名・投稿数・獲得いいね数・リスト数を表示</li>
         <li><strong>投稿履歴 / いいジャン</strong>タブ切り替え（モックAPIで動的切り替え）</li>
@@ -1041,7 +1078,10 @@
     </div>
 
     <h2>画面6: 他人のプロフィール</h2>
-    <div class="card">
+    <div class="card card-accent">
+      <div class="sticker"
+        style="top:-15px; left:-15px; font-size:14px; background:var(--impact-yellow); color:var(--deep-black); transform:rotate(-15deg);">
+        画面6</div>
       <ul>
         <li>赤背景のヒーローバナーで差別化</li>
         <li>フォロワー数・リスト数を表示</li>
@@ -1051,8 +1091,8 @@
     </div>
 
     <h2>技術実装</h2>
-    <div class="card card-yellow">
-      <ul>
+    <div class="card card-black">
+      <ul style="color:#eee;">
         <li><strong>フレームワーク不要</strong>: HTML5 + CSS3 + Vanilla JS のみで実装</li>
         <li><strong>SPA構成</strong>: 画面遷移はJSの <code>navigateTo()</code> による切り替え</li>
         <li><strong>モックAPI統合</strong>: <code>mock-data.js</code> から全データを取得し動的描画</li>
@@ -1065,10 +1105,11 @@
 
   <!-- ===== P10: 技術アーキテクチャ ===== -->
   <div class="page">
+    <div class="bg-flash"></div>
     <h1>技術アーキテクチャ</h1>
 
     <h2>MVP（現在）: 静的構成</h2>
-    <div class="card">
+    <div class="card card-yellow">
       <div class="flow">
         <div class="flow-step">prototype.html<br>(SPA)</div>
         <div class="flow-arrow">←</div>
@@ -1094,7 +1135,10 @@
 
     <h2>コマ認識技術</h2>
     <div class="card card-accent">
-      <p>マンガのページからコマを自動認識してタグ付けする技術が必要です。</p>
+      <div class="sticker"
+        style="top:-15px; right:20px; font-size:12px; transform:rotate(10deg); background:var(--deep-black);">AI活用!!
+      </div>
+      <p style="font-size:14px; font-weight:700;">マンガのページからコマを自動認識してタグ付けする技術が必要です。</p>
       <ul>
         <li><strong>AI画像認識</strong>: コマの境界線を機械学習モデルで検出</li>
         <li><strong>エッジ検出</strong>: 枠線ベースの画像処理で補完</li>
@@ -1157,9 +1201,12 @@
 
   <!-- ===== P11: データモデル ===== -->
   <div class="page">
+    <div class="speedlines" style="opacity:0.3; transform:rotate(180deg);"></div>
     <h1>データモデル</h1>
 
-    <p>12のデータモデルで全機能をカバーする設計です。</p>
+    <div class="card card-accent" style="padding:16px;">
+      <p style="margin:0; font-weight:700;">12のデータモデルで全機能をカバーする設計です。</p>
+    </div>
 
     <div class="grid-3">
       <div class="model-box">Users</div>
@@ -1167,11 +1214,13 @@
       <div class="model-box">Works</div>
       <div class="model-box">Episodes</div>
       <div class="model-box">Panels</div>
-      <div class="model-box">Comments</div>
+      <div class="model-box" style="background:var(--impact-yellow);">Comments</div>
       <div class="model-box">Attachments</div>
       <div class="model-box">Likes</div>
       <div class="model-box">Tags</div>
-      <div class="model-box" style="background:var(--red);">PanelLinks</div>
+      <div class="model-box"
+        style="background:var(--brand-red); color:#fff; transform:scale(1.1) skewX(-5deg); box-shadow:4px 4px 0 var(--deep-black);">
+        PanelLinks</div>
       <div class="model-box">Lists</div>
       <div class="model-box">ListItems</div>
     </div>
@@ -1199,12 +1248,14 @@ Comments ──N:M──▶ Tags</pre>
       </tr>
       <tr>
         <td>id</td>
-        <td>string</td>
+        <td><span class="tag" style="transform:none;margin:0;padding:0 4px;font-size:10px;">PK</span> string</td>
         <td>コメントID（UUID）</td>
       </tr>
       <tr>
         <td>user_id</td>
-        <td>string</td>
+        <td><span class="tag"
+            style="transform:none;margin:0;padding:0 4px;font-size:10px;background:var(--impact-yellow);">FK</span>
+          string</td>
         <td>投稿者のユーザーID</td>
       </tr>
       <tr>
@@ -1212,10 +1263,10 @@ Comments ──N:M──▶ Tags</pre>
         <td>string</td>
         <td>コメント本文（最大1000文字）</td>
       </tr>
-      <tr>
-        <td>spoiler</td>
+      <tr style="background:rgba(242,5,5,0.1);">
+        <td><strong>spoiler</strong></td>
         <td>boolean</td>
-        <td><strong>ネタバレフラグ（必須）</strong></td>
+        <td><strong style="color:var(--brand-red);">ネタバレフラグ（必須）</strong></td>
       </tr>
       <tr>
         <td>tags</td>
@@ -1244,17 +1295,21 @@ Comments ──N:M──▶ Tags</pre>
       </tr>
       <tr>
         <td>created_at</td>
-        <td>string</td>
-        <td>ISO 8601</td>
+        <td>timestamp</td>
+        <td>作成日時</td>
       </tr>
     </table>
 
-    <h2>モックデータ規模</h2>
+    <h2 style="margin-top:24px;">モックデータ規模</h2>
     <div class="grid-3">
-      <div class="card" style="text-align:center;"><strong>8</strong><br><span style="font-size:11px;">ユーザー</span></div>
-      <div class="card" style="text-align:center;"><strong>24</strong><br><span style="font-size:11px;">コメント</span>
+      <div class="card card-black" style="text-align:center;"><strong
+          style="font-size:32px;color:var(--impact-yellow);">8</strong><br><span
+          style="font-size:11px;color:#fff;">ユーザー</span></div>
+      <div class="card card-accent" style="text-align:center;"><strong
+          style="font-size:32px;color:var(--deep-black);">24</strong><br><span style="font-size:11px;">コメント</span>
       </div>
-      <div class="card" style="text-align:center;"><strong>4</strong><br><span style="font-size:11px;">コマ</span></div>
+      <div class="card card-yellow" style="text-align:center;"><strong style="font-size:32px;">40+</strong><br><span
+          style="font-size:11px;">コマ</span></div>
     </div>
     <span class="page-footer">KOMA LINK - MangaTech 2026</span>
     <span class="page-number">11</span>
@@ -1262,61 +1317,78 @@ Comments ──N:M──▶ Tags</pre>
 
   <!-- ===== P12: 競合分析 ===== -->
   <div class="page">
+    <div class="bg-flash"></div>
     <h1>競合分析</h1>
 
     <h2>競合マッピング</h2>
     <table>
       <tr>
-        <th>サービス</th>
-        <th>特徴</th>
-        <th>KOMA LINKとの違い</th>
+        <th style="width:25%;">サービス / 媒体</th>
+        <th style="width:35%;">特徴</th>
+        <th style="width:40%;">KOMA LINKのアドバンテージ</th>
       </tr>
       <tr>
         <td><strong>アル（alu.jp）</strong></td>
         <td>コマを切り抜いてSNSにシェア。出版社の使用許諾あり。</td>
-        <td>外部SNS転送型。プラットフォーム内完結しない。</td>
+        <td><span style="color:var(--brand-red); font-weight:700;">プラットフォーム内完結</span>でシームレス。</td>
       </tr>
       <tr>
         <td><strong>comici 付箋コメント</strong></td>
         <td>マンガの任意の位置に付箋コメントを残せる</td>
-        <td>コマ単位ではなく座標単位。体系的な考察に不向き。</td>
+        <td><span style="color:var(--brand-red); font-weight:700;">体系的な考察・交流</span>が可能。</td>
       </tr>
       <tr>
-        <td><strong>一般的なマンガアプリのコメント欄</strong></td>
+        <td><strong>一般的なマンガアプリ</strong></td>
         <td>話単位のテキストコメント。リアクション少数。</td>
-        <td>粒度が粗い。画像/動画不可。返信不可の場合が多い。</td>
+        <td><span style="color:var(--brand-red); font-weight:700;">精密な粒度</span>とマルチメディア表現。</td>
       </tr>
       <tr>
-        <td><strong>X（Twitter）</strong></td>
+        <td><strong>X（Twitter）などSNS</strong></td>
         <td>汎用SNS。マンガ感想の投稿は多い。</td>
-        <td>ネタバレ制御なし。作品データとの紐付けなし。</td>
+        <td><span style="color:var(--brand-red); font-weight:700;">ネタバレ制御</span>と作品特化のUI。</td>
       </tr>
     </table>
 
     <h2>KOMA LINKの差別化ポイント</h2>
     <div class="grid-2">
       <div class="card card-accent">
+        <div class="sticker"
+          style="top:-15px; left:-15px; font-size:12px; background:var(--deep-black); transform:rotate(-10deg);">強み1
+        </div>
         <h3>1. コマ単位の粒度</h3>
         <p style="font-size:12px;">話単位ではなくコマ単位。特定の表情、構図、セリフに対して精密に言及できる。</p>
       </div>
       <div class="card card-accent">
+        <div class="sticker"
+          style="top:-15px; left:-15px; font-size:12px; background:var(--deep-black); transform:rotate(-10deg);">強み2
+        </div>
         <h3>2. プラットフォーム内完結</h3>
         <p style="font-size:12px;">外部SNSに転送する必要なく、読書→コメント→交流がシームレスに完結。</p>
       </div>
       <div class="card card-accent">
+        <div class="sticker"
+          style="top:-15px; left:-15px; font-size:12px; background:var(--deep-black); transform:rotate(-10deg);">強み3
+        </div>
         <h3>3. 読進度連動ネタバレ制御</h3>
         <p style="font-size:12px;">他サービスにない、コマ単位の既読管理に基づく自動フィルタリング。</p>
       </div>
       <div class="card card-accent">
+        <div class="sticker"
+          style="top:-15px; left:-15px; font-size:12px; background:var(--deep-black); transform:rotate(-10deg);">強み4
+        </div>
         <h3>4. マルチメディアコメント</h3>
         <p style="font-size:12px;">テキスト+画像+動画で、二次創作を含む豊かな表現が可能。</p>
       </div>
     </div>
 
     <h2>ポジショニング</h2>
-    <div class="card card-yellow">
-      <p style="font-size:13px; text-align:center;"><strong>KOMA
-          LINKは「マンガ読書体験に統合されたSNS」という、既存サービスにないポジション</strong>を確立します。<br>閲覧ビューワー内にネイティブに組み込まれることで、読書→交流のフリクションをゼロにします。</p>
+    <div class="card card-yellow" style="padding:24px; text-align:center;">
+      <p style="font-size:18px; font-weight:900; line-height:1.6; margin-bottom:12px; font-style:italic;">
+        KOMA LINKは、既存サービスにない<br>
+        <span
+          style="background:var(--deep-black); color:#fff; padding:4px 12px; display:inline-block; transform:skewX(-5deg); margin-top:8px;">「マンガ読書体験に統合されたSNS」</span>
+      </p>
+      <p style="font-size:12px; font-weight:700;">閲覧ビューワー内にネイティブに組み込まれることで、読書→交流のフリクションをゼロにします。</p>
     </div>
     <span class="page-footer">KOMA LINK - MangaTech 2026</span>
     <span class="page-number">12</span>
@@ -1324,23 +1396,24 @@ Comments ──N:M──▶ Tags</pre>
 
   <!-- ===== P13: ビジネスモデル ===== -->
   <div class="page">
+    <div class="speedlines" style="opacity:0.4;"></div>
     <h1>ビジネスモデル・収益化</h1>
 
     <h2>KOMA LINKがジャンプ+にもたらす価値</h2>
     <div class="grid-2">
-      <div class="card" style="border-top:4px solid var(--red);">
-        <h3>滞在時間の延長</h3>
+      <div class="card card-yellow">
+        <h3 style="border-bottom-color:var(--deep-black);">滞在時間の延長</h3>
         <p style="font-size:12px;">コメント閲覧・投稿・交流により、読書後の滞在時間が増加。広告インプレッション増に直結。</p>
       </div>
-      <div class="card" style="border-top:4px solid var(--yellow);">
+      <div class="card card-accent">
         <h3>リテンション向上</h3>
         <p style="font-size:12px;">コミュニティの存在がプラットフォームへの愛着を生み、競合アプリへの流出を防止。</p>
       </div>
-      <div class="card" style="border-top:4px solid var(--black);">
-        <h3>新規ユーザー獲得</h3>
-        <p style="font-size:12px;">人気考察・ファンアートがバイラルし、コミュニティ目的での新規流入を創出。</p>
+      <div class="card card-black">
+        <h3 style="color:#fff; border-bottom-color:#555;">新規ユーザー獲得</h3>
+        <p style="font-size:12px; color:#ddd;">人気考察・ファンアートがバイラルし、コミュニティ目的での新規流入を創出。</p>
       </div>
-      <div class="card" style="border-top:4px solid var(--dark-red);">
+      <div class="card">
         <h3>作品データの可視化</h3>
         <p style="font-size:12px;">どのコマが話題か、どの場面が人気かのデータを編集部にフィードバック。</p>
       </div>
@@ -1376,18 +1449,18 @@ Comments ──N:M──▶ Tags</pre>
     </table>
 
     <h2>KPI（重要指標）</h2>
-    <div class="grid-3">
-      <div class="card" style="text-align:center;">
-        <h3 style="color:var(--red);">DAU</h3>
-        <p style="font-size:11px;">コメント機能の日間アクティブユーザー数</p>
+    <div class="grid-3" style="margin-top:24px;">
+      <div class="card card-black" style="text-align:center;">
+        <h3 style="color:#fff; border-bottom:1px solid #444; margin-top:0;">DAU</h3>
+        <p style="font-size:12px; color:#ddd; margin-bottom:0;">コメント機能の<br>日間アクティブユーザー数</p>
       </div>
-      <div class="card" style="text-align:center;">
-        <h3 style="color:var(--red);">滞在時間</h3>
-        <p style="font-size:11px;">読書後の平均滞在時間（分）</p>
+      <div class="card card-accent" style="text-align:center;">
+        <h3 style="color:var(--deep-black); border-bottom:1px solid var(--deep-black); margin-top:0;">滞在時間</h3>
+        <p style="font-size:12px; margin-bottom:0;">読書後の平均滞在時間<br>（分）</p>
       </div>
-      <div class="card" style="text-align:center;">
-        <h3 style="color:var(--red);">投稿率</h3>
-        <p style="font-size:11px;">閲覧者のうちコメント投稿する割合</p>
+      <div class="card card-yellow" style="text-align:center;">
+        <h3 style="color:var(--deep-black); border-bottom:1px solid var(--deep-black); margin-top:0;">投稿率</h3>
+        <p style="font-size:12px; margin-bottom:0;">閲覧者のうちコメント投稿する割合</p>
       </div>
     </div>
     <span class="page-footer">KOMA LINK - MangaTech 2026</span>
@@ -1396,13 +1469,16 @@ Comments ──N:M──▶ Tags</pre>
 
   <!-- ===== P14: スケーラビリティ ===== -->
   <div class="page">
+    <div class="bg-flash"></div>
     <h1>スケーラビリティ・拡張性</h1>
 
     <h2>段階的な機能拡張</h2>
-    <div class="card">
-      <table>
+    <div class="card card-yellow">
+      <div class="sticker"
+        style="top:-15px; right:-15px; font-size:14px; background:var(--brand-red); transform:rotate(10deg);">進化!!</div>
+      <table style="margin:0; box-shadow:none; border:2px solid var(--deep-black);">
         <tr>
-          <th>段階</th>
+          <th>フェーズ</th>
           <th>機能</th>
           <th>効果</th>
         </tr>
@@ -1436,6 +1512,9 @@ Comments ──N:M──▶ Tags</pre>
 
     <h2>海外展開</h2>
     <div class="card card-accent">
+      <div class="sticker"
+        style="top:-15px; left:-15px; font-size:12px; transform:rotate(-10deg); background:var(--deep-black);">Global!!
+      </div>
       <p>ジャンプ+は海外版（MANGA Plus）を展開しており、KOMA LINKは国際展開に大きなポテンシャルを持ちます。</p>
       <ul>
         <li><strong>多言語対応</strong>: UIの多言語化。コメントの自動翻訳機能。</li>
@@ -1533,45 +1612,48 @@ Comments ──N:M──▶ Tags</pre>
 
   <!-- ===== P16: リスクと対策 ===== -->
   <div class="page">
+    <div class="speedlines" style="opacity:0.6; transform:scaleX(-1) skewX(10deg);"></div>
     <h1>リスクと対策</h1>
 
-    <table>
-      <tr>
-        <th style="width:25%;">リスク</th>
-        <th style="width:25%;">影響度</th>
-        <th style="width:50%;">対策</th>
-      </tr>
-      <tr>
-        <td><strong>コメントの荒らし・誹謗中傷</strong></td>
-        <td><span class="tag">高</span></td>
-        <td>AI+人力のモデレーション体制。通報機能。投稿前の確認UI。ブロック機能。</td>
-      </tr>
-      <tr>
-        <td><strong>ネタバレ制御の精度</strong></td>
-        <td><span class="tag">中</span></td>
-        <td>投稿時のspoilerフラグ必須化で投稿者責任を明確化。AIによる自動検出を補助的に導入。</td>
-      </tr>
-      <tr>
-        <td><strong>著作権問題（二次創作）</strong></td>
-        <td><span class="tag">中</span></td>
-        <td>集英社公式プラットフォーム内のため、ガイドライン設定で対応可能。不適切な投稿は通報→削除フロー。</td>
-      </tr>
-      <tr>
-        <td><strong>サーバー負荷（新話公開時のスパイク）</strong></td>
-        <td><span class="tag">中</span></td>
-        <td>CDNキャッシュ＋オートスケーリング。人気コメントのプリフェッチ。非同期書き込み。</td>
-      </tr>
-      <tr>
-        <td><strong>ユーザー定着率</strong></td>
-        <td><span class="tag">中</span></td>
-        <td>初期は人気作品に限定して集中投入。プッシュ通知（返信・いいね通知）でリテンション向上。</td>
-      </tr>
-      <tr>
-        <td><strong>コマ認識の精度</strong></td>
-        <td><span class="tag">低</span></td>
-        <td>デジタル原稿のメタデータ活用。手動修正UIでフォールバック。段階的にAI精度を向上。</td>
-      </tr>
-    </table>
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table style="margin:0; border:none; box-shadow:none;">
+        <tr>
+          <th style="width:25%;">リスク</th>
+          <th style="width:15%;">影響度</th>
+          <th style="width:60%;">対策</th>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--brand-red);">コメントの荒らし・誹謗中傷</strong></td>
+          <td><span class="tag" style="background:var(--brand-red);color:#fff;">高</span></td>
+          <td>AI+人力のモデレーション体制。通報機能。投稿前の確認UI。ブロック機能。</td>
+        </tr>
+        <tr>
+          <td><strong>ネタバレ制御の精度</strong></td>
+          <td><span class="tag" style="background:var(--impact-yellow);">中</span></td>
+          <td>投稿時のspoilerフラグ必須化で投稿者責任を明確化。AIによる自動検出を補助的に導入。</td>
+        </tr>
+        <tr>
+          <td><strong>著作権問題（二次創作）</strong></td>
+          <td><span class="tag" style="background:var(--impact-yellow);">中</span></td>
+          <td>集英社公式プラットフォーム内のため、ガイドライン設定で対応可能。不適切な投稿は通報→削除フロー。</td>
+        </tr>
+        <tr>
+          <td><strong>サーバー負荷<br><span style="font-size:10px;">（新話公開時のスパイク）</span></strong></td>
+          <td><span class="tag" style="background:var(--impact-yellow);">中</span></td>
+          <td>CDNキャッシュ＋オートスケーリング。人気コメントのプリフェッチ。非同期書き込み。</td>
+        </tr>
+        <tr>
+          <td><strong>ユーザー定着率</strong></td>
+          <td><span class="tag" style="background:var(--impact-yellow);">中</span></td>
+          <td>初期は人気作品に限定して集中投入。プッシュ通知（返信・いいね通知）でリテンション向上。</td>
+        </tr>
+        <tr>
+          <td><strong>コマ認識の精度</strong></td>
+          <td><span class="tag">低</span></td>
+          <td>デジタル原稿のメタデータ活用。手動修正UIでフォールバック。段階的にAI精度を向上。</td>
+        </tr>
+      </table>
+    </div>
 
     <h2>モデレーション方針</h2>
     <div class="card card-accent">
@@ -1609,106 +1691,122 @@ Comments ──N:M──▶ Tags</pre>
 
   <!-- ===== P17: 技術スタック ===== -->
   <div class="page">
+    <div class="bg-flash"></div>
     <h1>技術スタック</h1>
 
-    <h2>フロントエンド</h2>
-    <table>
-      <tr>
-        <th>技術</th>
-        <th>用途</th>
-      </tr>
-      <tr>
-        <td><strong>React + TypeScript</strong></td>
-        <td>UIコンポーネント構築</td>
-      </tr>
-      <tr>
-        <td><strong>Next.js</strong></td>
-        <td>SSR/SSG、ルーティング</td>
-      </tr>
-      <tr>
-        <td><strong>Tailwind CSS</strong></td>
-        <td>スタイリング（design.md準拠のカスタムテーマ）</td>
-      </tr>
-      <tr>
-        <td><strong>Framer Motion</strong></td>
-        <td>画面遷移・インタラクションアニメーション</td>
-      </tr>
-    </table>
+    <div class="grid-2">
+      <div>
+        <h2>フロントエンド</h2>
+        <table style="margin-top:0;">
+          <tr>
+            <th>技術</th>
+            <th>用途</th>
+          </tr>
+          <tr>
+            <td><strong>React + TypeScript</strong></td>
+            <td>UIコンポーネント構築</td>
+          </tr>
+          <tr>
+            <td><strong>Next.js</strong></td>
+            <td>SSR/SSG、ルーティング</td>
+          </tr>
+          <tr>
+            <td><strong>Tailwind CSS</strong></td>
+            <td>スタイリング（テーマ準拠）</td>
+          </tr>
+          <tr>
+            <td><strong>Framer Motion</strong></td>
+            <td>アニメーション</td>
+          </tr>
+        </table>
+      </div>
 
-    <h2>バックエンド</h2>
-    <table>
-      <tr>
-        <th>技術</th>
-        <th>用途</th>
-      </tr>
-      <tr>
-        <td><strong>Supabase</strong></td>
-        <td>認証・DB・ストレージ・リアルタイム</td>
-      </tr>
-      <tr>
-        <td><strong>PostgreSQL</strong></td>
-        <td>リレーショナルDB（12モデル）</td>
-      </tr>
-      <tr>
-        <td><strong>Supabase Storage</strong></td>
-        <td>画像・動画ファイル管理</td>
-      </tr>
-      <tr>
-        <td><strong>Edge Functions</strong></td>
-        <td>カスタムロジック（ネタバレ制御等）</td>
-      </tr>
-    </table>
+      <div>
+        <h2>バックエンド</h2>
+        <table style="margin-top:0;">
+          <tr>
+            <th>技術</th>
+            <th>用途</th>
+          </tr>
+          <tr>
+            <td><strong>Supabase</strong></td>
+            <td>認証・DB・リアルタイム</td>
+          </tr>
+          <tr>
+            <td><strong>PostgreSQL</strong></td>
+            <td>リレーショナルDB</td>
+          </tr>
+          <tr>
+            <td><strong>Storage</strong></td>
+            <td>画像・動画ファイル管理</td>
+          </tr>
+          <tr>
+            <td><strong>Edge Functions</strong></td>
+            <td>カスタムロジック</td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
-    <h2>インフラ</h2>
-    <table>
-      <tr>
-        <th>技術</th>
-        <th>用途</th>
-      </tr>
-      <tr>
-        <td><strong>Vercel</strong></td>
-        <td>フロントエンドデプロイ</td>
-      </tr>
-      <tr>
-        <td><strong>Cloudflare CDN</strong></td>
-        <td>静的アセット配信</td>
-      </tr>
-      <tr>
-        <td><strong>GitHub Actions</strong></td>
-        <td>CI/CD パイプライン</td>
-      </tr>
-    </table>
+    <div class="grid-2">
+      <div>
+        <h2>インフラ</h2>
+        <table style="margin-top:0;">
+          <tr>
+            <th>技術</th>
+            <th>用途</th>
+          </tr>
+          <tr>
+            <td><strong>Vercel</strong></td>
+            <td>フロントエンドデプロイ</td>
+          </tr>
+          <tr>
+            <td><strong>Cloudflare CDN</strong></td>
+            <td>静的アセット配信</td>
+          </tr>
+          <tr>
+            <td><strong>GitHub Actions</strong></td>
+            <td>CI/CD パイプライン</td>
+          </tr>
+        </table>
+      </div>
 
-    <h2>AI/ML（将来）</h2>
-    <table>
-      <tr>
-        <th>技術</th>
-        <th>用途</th>
-      </tr>
-      <tr>
-        <td><strong>画像認識モデル</strong></td>
-        <td>コマ境界の自動検出</td>
-      </tr>
-      <tr>
-        <td><strong>NLPモデル</strong></td>
-        <td>ネタバレ自動検出・コメント分類</td>
-      </tr>
-      <tr>
-        <td><strong>レコメンデーション</strong></td>
-        <td>関連コメント・コマの推薦</td>
-      </tr>
-    </table>
+      <div>
+        <h2>AI/ML（将来）</h2>
+        <table style="margin-top:0;">
+          <tr>
+            <th>技術</th>
+            <th>用途</th>
+          </tr>
+          <tr>
+            <td><strong>画像認識モデル</strong></td>
+            <td>コマ境界の自動検出</td>
+          </tr>
+          <tr>
+            <td><strong>NLPモデル</strong></td>
+            <td>ネタバレ検出・自動分類</td>
+          </tr>
+          <tr>
+            <td><strong>推薦エンジン</strong></td>
+            <td>関連コメント・コマ推薦</td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
     <h2>開発ツール</h2>
     <div class="grid-3">
-      <div class="card" style="text-align:center; font-size:12px;">
-        <strong>Git / GitHub</strong><br>バージョン管理
+      <div class="card card-black" style="text-align:center; padding:12px;">
+        <strong style="font-size:16px; color:#fff;">Git / GitHub</strong><br><span
+          style="font-size:11px; color:#ccc;">バージョン管理</span>
       </div>
-      <div class="card" style="text-align:center; font-size:12px;">
-        <strong>Figma</strong><br>UIデザイン
+      <div class="card card-black" style="text-align:center; padding:12px;">
+        <strong style="font-size:16px; color:#fff;">Figma</strong><br><span
+          style="font-size:11px; color:#ccc;">UIデザイン</span>
       </div>
-      <div class="card" style="text-align:center; font-size:12px;">
-        <strong>Notion</strong><br>プロジェクト管理
+      <div class="card card-black" style="text-align:center; padding:12px;">
+        <strong style="font-size:16px; color:#fff;">Notion</strong><br><span
+          style="font-size:11px; color:#ccc;">タスク管理</span>
       </div>
     </div>
     <span class="page-footer">KOMA LINK - MangaTech 2026</span>
@@ -1717,11 +1815,12 @@ Comments ──N:M──▶ Tags</pre>
 
   <!-- ===== P18: 開発体制・メンバー略歴 ===== -->
   <div class="page">
+    <div class="speedlines" style="opacity:0.3;"></div>
     <h1>開発体制</h1>
 
     <h2>体制図</h2>
     <div class="card">
-      <div class="placeholder" style="min-height:120px;">
+      <div class="placeholder" style="min-height:120px; background:#fff; border-color:var(--deep-black);">
         <!-- ここに開発体制図を記入 -->
         [開発体制図をここに挿入]<br><br>
         例:<br>
@@ -1731,8 +1830,8 @@ Comments ──N:M──▶ Tags</pre>
     </div>
 
     <h2>メンバー略歴</h2>
-    <div class="card">
-      <div class="placeholder">
+    <div class="card card-accent">
+      <div class="placeholder" style="background:#fff; border-color:var(--deep-black);">
         <!-- ここにメンバー略歴を記入 -->
         [メンバー略歴をここに記入]<br><br>
         記載項目（コンテスト要件）:<br>
@@ -1742,17 +1841,12 @@ Comments ──N:M──▶ Tags</pre>
       </div>
     </div>
 
-    <h2>外部連携の有無</h2>
-    <div class="card">
-      <div class="placeholder">
-        [外部連携の必要性について記入]<br><br>
-        例: AI/ML技術のコマ認識部分は外部パートナーとの連携を検討
-      </div>
-    </div>
-
     <h2>開発体制の堅実性</h2>
     <div class="card card-yellow">
-      <ul>
+      <div class="sticker"
+        style="top:-15px; right:-15px; font-size:14px; background:var(--brand-red); transform:rotate(10deg);">実現可能!!
+      </div>
+      <ul style="margin-bottom:0;">
         <li><strong>プロトタイプ実装済み</strong>: インタラクティブなHTML/JSプロトタイプを既に完成</li>
         <li><strong>API設計完了</strong>: 8エンドポイント・12データモデルの仕様策定済み</li>
         <li><strong>技術選定済み</strong>: React + Supabase のモダンスタックで迅速な開発が可能</li>
@@ -1836,32 +1930,37 @@ Comments ──N:M──▶ Tags</pre>
 
   <!-- ===== P20: まとめ ===== -->
   <div class="page" style="display:flex; flex-direction:column; justify-content:space-between;">
+    <div class="bg-flash" style="opacity:0.2;"></div>
     <div>
       <h1>まとめ</h1>
 
-      <div class="card card-accent" style="margin:24px 0;">
-        <p style="font-size:16px; font-weight:800; text-align:center; line-height:2;">
+      <div class="card card-accent" style="margin:24px 0; border-width:5px;">
+        <div class="sticker"
+          style="top:-20px; right:-10px; font-size:16px; transform:rotate(5deg); background:var(--impact-yellow); color:var(--deep-black);">
+          決定打!!</div>
+        <p style="font-size:20px; font-weight:900; text-align:center; line-height:2; margin:10px 0;">
           KOMA LINK は、ジャンプ+を<br>
-          <span class="highlight">「読む場所」から「語り合う場所」</span>へ進化させます。
+          <span class="highlight"
+            style="font-size:24px; padding:4px 16px; margin-top:8px; display:inline-block; box-shadow:4px 4px 0 var(--deep-black);">「読む場所」から「語り合う場所」</span>へ進化させます。
         </p>
       </div>
 
-      <div class="grid-2" style="margin:24px 0;">
-        <div class="card">
-          <h3 style="color:var(--red);">斬新さ</h3>
-          <p style="font-size:12px;">コマ単位のコメントシステムは、マンガアプリにおける世界初のアプローチ。読者の交流粒度を劇的に変える。</p>
+      <div class="grid-2" style="margin:24px 0; gap:24px;">
+        <div class="card card-black">
+          <h3 style="color:var(--impact-yellow); border-bottom:1px solid #444;">斬新さ</h3>
+          <p style="font-size:12px; color:#ddd; margin-bottom:0;">コマ単位のコメントシステムは、マンガアプリにおける世界初のアプローチ。読者の交流粒度を劇的に変える。</p>
         </div>
         <div class="card">
-          <h3 style="color:var(--red);">実現性</h3>
-          <p style="font-size:12px;">プロトタイプ実装済み。API・データモデル設計完了。モダン技術スタックで3ヶ月でMVP開発可能。</p>
+          <h3 style="color:var(--brand-red);">実現性</h3>
+          <p style="font-size:12px; margin-bottom:0;">プロトタイプ実装済み。API・データモデル設計完了。モダン技術スタックで3ヶ月でMVP開発可能。</p>
         </div>
-        <div class="card">
-          <h3 style="color:var(--red);">スケール可能性</h3>
-          <p style="font-size:12px;">MANGA Plus経由で海外展開。クリエイターエコノミーでの収益拡大。作品データの編集活用。</p>
+        <div class="card card-yellow">
+          <h3 style="color:var(--deep-black); border-bottom:1px solid var(--deep-black);">スケール可能性</h3>
+          <p style="font-size:12px; margin-bottom:0;">MANGA Plus経由で海外展開。クリエイターエコノミーでの収益拡大。作品データの編集活用。</p>
         </div>
-        <div class="card">
-          <h3 style="color:var(--red);">ジャンプ+への貢献</h3>
-          <p style="font-size:12px;">滞在時間延長・リテンション向上・新規獲得。閲覧プラットフォームからコミュニティプラットフォームへの進化。</p>
+        <div class="card card-accent">
+          <h3 style="color:var(--deep-black); border-bottom:1px solid var(--deep-black);">ジャンプ+への貢献</h3>
+          <p style="font-size:12px; margin-bottom:0;">滞在時間延長・リテンション向上・新規獲得。閲覧プラットフォームからコミュニティプラットフォームへの本質的な進化。</p>
         </div>
       </div>
     </div>
