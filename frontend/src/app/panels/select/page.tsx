@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import { Check } from "lucide-react";
+import { assetPath } from "@/lib/assetPath";
 
 // Helper component to render a selectable grid panel
 function SelectablePanel({ id, src, className, selected, toggleSelect }: { id: string, src: string, className: string, selected: string[], toggleSelect: (id: string) => void }) {
@@ -87,7 +88,7 @@ export default function SelectPanelPage() {
                     {/* Top Panel (Wide) */}
                     <SelectablePanel
                         id={activeTab === "nearby" ? "p1" : "a3"}
-                        src={activeTab === "nearby" ? "/assets/panels/panel-city.png" : "/assets/panels/panel-city.png"}
+                        src={activeTab === "nearby" ? assetPath("/assets/panels/panel-city.png") : assetPath("/assets/panels/panel-city.png")}
                         className="w-full h-32 md:h-48"
                         selected={selected}
                         toggleSelect={toggleSelect}
@@ -98,7 +99,7 @@ export default function SelectPanelPage() {
                         {/* Left split */}
                         <SelectablePanel
                             id={activeTab === "nearby" ? "p4" : "a1"}
-                            src={activeTab === "nearby" ? "/assets/panels/panel-shock.png" : "/assets/panels/panel-shock.png"}
+                            src={activeTab === "nearby" ? assetPath("/assets/panels/panel-shock.png") : assetPath("/assets/panels/panel-shock.png")}
                             className="w-2/5 h-full"
                             selected={selected}
                             toggleSelect={toggleSelect}
@@ -106,7 +107,7 @@ export default function SelectPanelPage() {
                         {/* Right split */}
                         <SelectablePanel
                             id={activeTab === "nearby" ? "p2" : "a2"}
-                            src={activeTab === "nearby" ? "/assets/panels/panel-noodles.png" : "/assets/panels/panel-noodles.png"}
+                            src={activeTab === "nearby" ? assetPath("/assets/panels/panel-noodles.png") : assetPath("/assets/panels/panel-noodles.png")}
                             className="w-3/5 h-full"
                             selected={selected}
                             toggleSelect={toggleSelect}
@@ -116,7 +117,7 @@ export default function SelectPanelPage() {
                     {/* Bottom Panel (Action) */}
                     <SelectablePanel
                         id={activeTab === "nearby" ? "p3" : "a4"}
-                        src={activeTab === "nearby" ? "/assets/panels/panel-food.png" : "/assets/panels/panel-food.png"}
+                        src={activeTab === "nearby" ? assetPath("/assets/panels/panel-food.png") : assetPath("/assets/panels/panel-food.png")}
                         className="w-full h-40 md:h-56"
                         selected={selected}
                         toggleSelect={toggleSelect}
@@ -126,14 +127,14 @@ export default function SelectPanelPage() {
                         <div className="flex gap-2 h-32 md:h-48 mt-2">
                             <SelectablePanel
                                 id="a5"
-                                src="/assets/panels/panel-shock.png"
+                                src={assetPath("/assets/panels/panel-shock.png")}
                                 className="w-1/2 h-full"
                                 selected={selected}
                                 toggleSelect={toggleSelect}
                             />
                             <SelectablePanel
                                 id="a6"
-                                src="/assets/panels/panel-city.png"
+                                src={assetPath("/assets/panels/panel-city.png")}
                                 className="w-1/2 h-full"
                                 selected={selected}
                                 toggleSelect={toggleSelect}

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { assetPath } from "@/lib/assetPath";
 
 export default function Home() {
   return (
@@ -6,7 +7,7 @@ export default function Home() {
 
       {/* Hero Header Area (Magazine Style) */}
       <div className="relative w-full h-[45vh] bg-[var(--color-deep-black)] border-b-8 border-[var(--color-brand-red)] overflow-hidden flex flex-col items-center justify-end px-4 pb-8">
-        <div className="absolute inset-0 bg-[url('/assets/panels/panel-city.png')] bg-cover bg-center opacity-40 mix-blend-luminosity"></div>
+        <div className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity" style={{ backgroundImage: `url(${assetPath('/assets/panels/panel-city.png')})` }}></div>
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[var(--color-deep-black)] to-transparent"></div>
 
         <div className="relative z-10 w-full text-center">

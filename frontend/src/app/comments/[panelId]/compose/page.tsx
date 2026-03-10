@@ -4,6 +4,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import { Camera, Tag, Send } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import { assetPath } from "@/lib/assetPath";
 
 export default function ComposeCommentPage() {
     const router = useRouter();
@@ -53,12 +54,12 @@ export default function ComposeCommentPage() {
                     onClick={() => router.push('/panels/select')}
                 >
                     <img
-                        src={`/assets/panels/panel-noodles.png`}
+                        src={assetPath("/assets/panels/panel-noodles.png")}
                         className="h-20 w-auto object-cover border-[3px] border-[var(--color-deep-black)]"
                         alt="Selected Panel 1"
                     />
                     <img
-                        src={`/assets/panels/panel-shock.png`}
+                        src={assetPath("/assets/panels/panel-shock.png")}
                         className="h-20 w-auto object-cover border-[3px] border-[var(--color-brand-red)] rotate-6"
                         alt="Selected Panel 2"
                     />

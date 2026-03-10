@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { MessageSquare, Heart, RefreshCw, PenSquare } from "lucide-react";
 import Link from "next/link";
 import { useParams } from 'next/navigation';
+import { assetPath } from "@/lib/assetPath";
 
 export default function CommentSheetPage() {
     const params = useParams();
@@ -87,7 +88,7 @@ export default function CommentSheetPage() {
             {/* Target Panel Thumbnail */}
             <div className="p-4 bg-[var(--color-deep-black)] flex justify-center border-b-4 border-black shadow-[0_4px_0_var(--color-brand-red)]">
                 <img
-                    src={`/assets/panels/${panelId === 'p2' ? 'panel-noodles.png' : panelId === 'p4' ? 'panel-shock.png' : 'panel-city.png'}`}
+                    src={assetPath(`/assets/panels/${panelId === 'p2' ? 'panel-noodles.png' : panelId === 'p4' ? 'panel-shock.png' : 'panel-city.png'}`)}
                     className="h-32 object-contain border-4 border-[var(--color-clean-white)] -rotate-2"
                     alt="Target panel"
                 />
