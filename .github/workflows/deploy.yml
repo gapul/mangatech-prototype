@@ -38,10 +38,17 @@ jobs:
         env:
           NODE_ENV: production
 
+      - name: Assemble deployment directory
+        run: |
+          mkdir -p deploy/app
+          cp index.html slides.html proposal.html prototype.html deploy/
+          cp -r assets deploy/
+          cp -r frontend/out/* deploy/app/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/out
+          path: deploy
 
   deploy:
     environment:

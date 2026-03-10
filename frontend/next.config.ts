@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
 
 const isProd = process.env.NODE_ENV === 'production';
-const BASE_PATH = isProd ? '/mangatech-prototype' : '';
+const BASE_PATH = isProd ? '/mangatech-prototype/app' : '';
 
 const nextConfig: NextConfig = {
   output: 'export',
   basePath: BASE_PATH,
-  assetPrefix: isProd ? '/mangatech-prototype/' : '',
+  assetPrefix: isProd ? '/mangatech-prototype/app/' : '',
   env: {
     NEXT_PUBLIC_BASE_PATH: BASE_PATH,
   },
